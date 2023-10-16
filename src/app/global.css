@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fa-location-dot {
+  color: rgb(239, 68, 68) !important; 
+}
+
+#header-text {
+  color: #000000;
+  background-image: -webkit-linear-gradient(315deg, #000000 0%, #8bc34a 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#recently-added-header-text {
+  color: #000000;
+  background-image: -webkit-linear-gradient(315deg, #000000 0%, #8bc34a 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
