@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Inter } from "next/font/google";
-import DarkModeProvider from "../context/DarkModeProvider.js";
+import DarkModeProvider from "../context/DarkModeProvider";
 import type { Metadata } from "next";
 import "../fontawesome/css/all.min.css";
 import "./global.css";
@@ -21,15 +21,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={inter.className}>
-        <div className="dark:bg-neutral-800 bg-neutral-50">
-          <DarkModeProvider>
+      <DarkModeProvider>
+        <body className={inter.className}>
+          <div className="dark:bg-neutral-800 bg-neutral-50">
             <Navbar />
             {children}
             <Footer />
-          </DarkModeProvider>
-        </div>
-      </body>
+          </div>
+        </body>
+      </DarkModeProvider>
     </html>
   );
 }

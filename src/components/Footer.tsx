@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useDarkMode } from "@/context/DarkModeProvider";
 
 export default function Footer() {
-  const { isDarkMode, setIsDarkMode } = useDarkMode();
+  const { isDarkMode } = useDarkMode();
 
   const faceBookPage = "https://www.facebook.com/BienesRaicesEka";
   return (

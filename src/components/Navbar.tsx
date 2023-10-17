@@ -8,7 +8,7 @@ import DarkModeSwitch from "./DarkModeSwitch";
 import { useDarkMode } from "@/context/DarkModeProvider";
 
 export default function Navbar() {
-  const { isDarkMode, setIsDarkMode } = useDarkMode();
+  const { isDarkMode } = useDarkMode();
   const navbarRef = useRef<HTMLDivElement>(null);
 
   function toggleHidden() {
@@ -56,6 +56,7 @@ export default function Navbar() {
 
         {/* Right side elements */}
         <div className="flex items-center">
+                    <DarkModeSwitch className="mr-4 md:mr-8" />
           <button
             data-collapse-toggle="navbar-solid-bg"
             type="button"
@@ -106,7 +107,6 @@ export default function Navbar() {
               Propiedades
             </Link>
           </ul>
-          <DarkModeSwitch className="ml-2 md:ml-8" />
         </div>
 
         {/* Mobile menu elements */}
