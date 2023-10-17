@@ -12,10 +12,10 @@ export default function Footer() {
         </div>
         <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
           <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase text-black">
+            <h2 className="dark:text-white text-black mb-6 text-sm font-semibold uppercase">
               Seguínos
             </h2>
-            <ul className="text-gray-600">
+            <ul className="dark:text-gray-100 text-gray-600">
               <li className="mb-4">
                 {" "}
                 <a
@@ -31,12 +31,12 @@ export default function Footer() {
         </div>
       </div>
       <hr className="my-6 sm:mx-auto border-gray-400 lg:my-8" />
-      <span className="text-sm sm:text-center text-gray-600">
+      <span className="dark:text-gray-100 text-gray-600 text-sm sm:text-center">
         © 2023{" "}
         <a href="/" className="hover:underline">
-          Eka Bienes Raíces™
+          Eka Bienes Raíces
         </a>
-        . Todos los derechos reservados.
+        ™. Todos los derechos reservados.
       </span>
     </footer>
   );

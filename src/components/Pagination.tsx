@@ -23,7 +23,10 @@ export default function Pagination({
         <li>
           <button
             onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
-            className="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700"
+            className={`
+            dark:bg-neutral-700 dark:text-white dark:border-neutral-400 dark:hover:bg-neutral-600
+            text-gray-500 border-gray-300 hover:bg-gray-100 hover:text-gray-700
+            block px-3 py-2 ml-0 leading-tight bg-white border rounded-l-lg `}
           >
             <span className="sr-only">Previous</span>
             <svg
@@ -48,8 +51,10 @@ export default function Pagination({
               className={`px-3 py-2 leading-tight
               ${
                 page === currentPage
-                  ? "text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-70"
-                  : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                  ? `dark:text-orange-500 dark:border-white dark:hover:text-orange-500 dark:bg-neutral-700
+                     text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-70 font-bold`
+                  : `dark:text-neutral-400 dark:border-neutral-400 dark:hover:text-orange-500 dark:bg-neutral-700
+                     text-gray-500 border-gray-300 hover:bg-gray-100 hover:text-gray-700 bg-white border`
               }`}
             >
               {page}
@@ -62,7 +67,10 @@ export default function Pagination({
               currentPage < Math.ceil(totalPosts / postsPerPage) &&
               setCurrentPage(currentPage + 1)
             }
-            className="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700"
+            className={`
+            dark:bg-neutral-700 dark:text-white dark:border-neutral-400 dark:hover:bg-neutral-600
+            text-gray-500 border-gray-300 hover:bg-gray-100 hover:text-gray-700
+            block px-3 py-2 ml-0 leading-tight bg-white border rounded-r-lg `}
           >
             <span className="sr-only">Next</span>
             <svg
@@ -84,4 +92,3 @@ export default function Pagination({
     </nav>
   );
 }
-

@@ -21,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={inter.className}>
+        <div className="dark:bg-neutral-800 bg-neutral-50">
         <Navbar />
         {children}
         <Footer />
+        </div>
       </body>
     </html>
   );

@@ -161,10 +161,11 @@ const PostItem = ({ postData }: Props) => {
             key={index}
             id={post.id}
             className={`
-            bg-gray-100 border-2 border-gray-200
-            shadow-lg shadow-gray-200
+            dark:bg-neutral-700 bg-gray-100 
+            border-2 dark:border-neutral-600 border-gray-200
+            shadow-lg dark:shadow-neutral-600 shadow-gray-200
             items-center
-            mb-6 md:mb-6 py-8 md:py-6 px-5 mx-5
+            mb-6 md:mb-6 py-6 px-5 mx-5
             max-w-screen-lg 
             md:grid md:grid-cols-2
             lg:mx-auto rounded-xl`}
@@ -175,11 +176,11 @@ const PostItem = ({ postData }: Props) => {
                   (subattachment: any) => subattachment.media.image.src,
                 );
 
-                return <ImageCarousel images={allImages} key={index}/>;
+                return <ImageCarousel images={allImages} key={index} />;
               })}
             </div>
             <div className="md:pl-5">
-              <div className="flex items-center pt-5 md:pt-0">
+              <div className="dark:text-white text-black flex items-center pt-5 md:pt-0">
                 <h1 className={`text-2xl sm:text-3xl font-bold`}>
                   {highestPrice}
                 </h1>
@@ -187,8 +188,12 @@ const PostItem = ({ postData }: Props) => {
                   - En {alquilerVenta}
                 </p>
               </div>
-              <h1 className={`text-lg md:text-xl pt-2`}>{title}</h1>
-              <div className="py-3">
+              <h1
+                className={`dark:text-white text-black text-lg md:text-xl pt-2`}
+              >
+                {title}
+              </h1>
+              <div className="py-3 dark:text-white text-black">
                 {interiorDetails.map((intDetails, index) =>
                   intDetails.ifStatement ? (
                     <div className="inline-flex items-center mr-3" key={index}>
@@ -208,7 +213,7 @@ const PostItem = ({ postData }: Props) => {
                   (property, index) =>
                     propertyType.includes(property.propType) && (
                       <div className="inline-flex items-center" key={index}>
-                        <i 
+                        <i
                           className={`fa-light fa-${property.icon} text-gray-800 mr-1`}
                         ></i>
                         <span>{property.propType}</span>
@@ -218,7 +223,7 @@ const PostItem = ({ postData }: Props) => {
               </div>
               <div>
                 {locationString && (
-                  <div className="flex items-center pb-4">
+                  <div className="dark:text-white text-black flex items-center pb-4">
                     <i className={`fa-solid fa-location-dot mr-2`}></i>
                     <h1 className={`text-lg font-light`}>{locationString}</h1>
                   </div>
@@ -231,7 +236,7 @@ const PostItem = ({ postData }: Props) => {
                     <button
                       className={`bg-orange-500 hover:bg-orange-400 text-white 
                 font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 
-                rounded  hover:animate-pulse w-full md:w-36`}
+                rounded w-full md:w-36`}
                     >
                       Ver Detalles
                     </button>

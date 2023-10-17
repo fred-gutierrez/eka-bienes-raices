@@ -28,10 +28,7 @@ export default function RecentlyAdded({ postData }: Props) {
 
   return (
     <>
-      <h1
-        id="recently-added-header-text"
-        className="text-center mb-10 sm:text-4xl md:leading-tight text-3xl font-bold md:font-medium"
-      >
+      <h1 className="dark:recently-added-header-text recently-added-header-text text-center mb-10 sm:text-4xl md:leading-tight text-3xl font-bold md:font-medium">
         ¡Lo ultimo!
       </h1>
       <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
@@ -184,7 +181,7 @@ export default function RecentlyAdded({ postData }: Props) {
             <>
               <div key={index}>
                 {propertyType && (
-                  <h1 className="text-center text-2xl my-4 underline">
+                  <h1 className="dark:text-white text-black text-center text-2xl my-4 underline">
                     {propertyType}
                   </h1>
                 )}
@@ -192,23 +189,26 @@ export default function RecentlyAdded({ postData }: Props) {
                   key={index}
                   id={post.id}
                   className={`
-                bg-gray-100 border-2 border-gray-200
-                shadow-lg shadow-gray-200
-                items-center
-                mb-6 py-8 px-5 mx-5
-                max-w-screen-sm rounded-xl`}
+                  dark:bg-neutral-700 bg-gray-100 
+                  border-2 dark:border-neutral-600 border-gray-200
+                  shadow-lg dark:shadow-neutral-600 shadow-gray-200
+                  items-center  
+                  mb-6 py-6 px-5 mx-5
+                  max-w-screen-sm rounded-xl`}
                 >
                   <div>
-                    {post.attachments.data.map((attachment: any, index: number) => {
-                      const allImages = attachment.subattachments.data.map(
-                        (subattachment: any) => subattachment.media.image.src,
-                      );
+                    {post.attachments.data.map(
+                      (attachment: any, index: number) => {
+                        const allImages = attachment.subattachments.data.map(
+                          (subattachment: any) => subattachment.media.image.src,
+                        );
 
-                      return <ImageCarousel images={allImages} key={index} />;
-                    })}
+                        return <ImageCarousel images={allImages} key={index} />;
+                      },
+                    )}
                   </div>
                   <div>
-                    <div className="flex items-center pt-5">
+                    <div className="dark:text-white text-black flex items-center pt-5">
                       <h1 className={`text-2xl sm:text-3xl font-bold`}>
                         {highestPrice}
                       </h1>
@@ -216,13 +216,20 @@ export default function RecentlyAdded({ postData }: Props) {
                         - En {alquilerVenta}
                       </p>
                     </div>
-                    <h1 className={`text-lg md:text-xl pt-2`}>{title}</h1>
-                    <div className="py-3">
+                    <h1
+                      className={`dark:text-white text-black text-lg md:text-xl pt-2`}
+                    >
+                      {title}
+                    </h1>
+                    <div className="py-3 dark:text-white text-black">
                       {interiorDetails.map((intDetails, index) =>
                         intDetails.ifStatement ? (
-                          <div className="inline-flex items-center mr-3" key={index}>
+                          <div
+                            className="inline-flex items-center mr-3"
+                            key={index}
+                          >
                             <i
-                              className={`fa-light fa-${intDetails.icon} mr-1 text-gray-800`}
+                              className={`fa-light fa-${intDetails.icon} mr-1`}
                             ></i>
                             <div>
                               <span className="font-semibold">
@@ -236,7 +243,10 @@ export default function RecentlyAdded({ postData }: Props) {
                       {propertiesType.map(
                         (property, index) =>
                           propertyType.includes(property.propType) && (
-                            <div className="inline-flex items-center" key={index}>
+                            <div
+                              className="inline-flex items-center"
+                              key={index}
+                            >
                               <i
                                 className={`fa-light fa-${property.icon} text-gray-800 mr-1`}
                               ></i>
@@ -247,7 +257,7 @@ export default function RecentlyAdded({ postData }: Props) {
                     </div>
                     <div>
                       {locationString && (
-                        <div className="flex items-center pb-4">
+                        <div className="dark:text-white text-black flex items-center pb-4">
                           <i className={`fa-solid fa-location-dot mr-2`}></i>
                           <h1 className={`text-lg font-light`}>
                             {locationString}
@@ -262,7 +272,7 @@ export default function RecentlyAdded({ postData }: Props) {
                           <button
                             className={`bg-orange-500 hover:bg-orange-400 text-white 
                 font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 
-                rounded  hover:animate-pulse w-full`}
+                rounded w-full`}
                           >
                             Ver Detalles
                           </button>
