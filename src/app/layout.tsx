@@ -1,8 +1,9 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Inter } from "next/font/google";
+import DarkModeProvider from "../context/DarkModeProvider.js";
 import type { Metadata } from "next";
-import "../fontawesome/css/all.min.css"
+import "../fontawesome/css/all.min.css";
 import "./global.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,9 +23,11 @@ export default function RootLayout({
     <html lang="es">
       <body className={inter.className}>
         <div className="dark:bg-neutral-800 bg-neutral-50">
-        <Navbar />
-        {children}
-        <Footer />
+          <DarkModeProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </DarkModeProvider>
         </div>
       </body>
     </html>

@@ -1,13 +1,28 @@
+"use client"
+
 import Image from "next/image";
+import { useDarkMode } from "@/context/DarkModeProvider";
 
 export default function Footer() {
+  const { isDarkMode, setIsDarkMode } = useDarkMode();
+
   const faceBookPage = "https://www.facebook.com/BienesRaicesEka";
   return (
     <footer className="p-5 sm:px-10 sm:py-9 bg-transparent">
       <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0 flex">
           <a href="/">
-            <Image src="/eka-logo-transparent2.png" className="ml-3" height={96} width={96} alt="Eka Logo" />
+            <Image
+              src={
+                isDarkMode
+                  ? "/eka-logo-white.png"
+                  : "/eka-logo-black.png"
+              }
+              className="ml-3"
+              height={96}
+              width={96}
+              alt={isDarkMode ? "Dark Mode Image" : "Light Mode Image"}
+            />
           </a>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useDarkMode } from "@/context/DarkModeProvider";
 
-const DarkModeSwitch: React.FC<{ className: string }> = ({ className }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+interface DarkModeSwitchTypes {
+  className: string;
+}
+
+const DarkModeSwitch: React.FC<DarkModeSwitchTypes> = ({ className }) => {
+  const { isDarkMode, setIsDarkMode } = useDarkMode();
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
