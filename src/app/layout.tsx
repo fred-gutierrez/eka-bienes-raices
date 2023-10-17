@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Inter } from "next/font/google";
-import DarkModeProvider from "../context/DarkModeProvider";
+import DarkModeProvider from "../context/DarkModeProvider.js";
 import type { Metadata } from "next";
 import "../fontawesome/css/all.min.css";
 import "./global.css";
