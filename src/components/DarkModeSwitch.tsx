@@ -5,7 +5,7 @@ interface DarkModeSwitchTypes {
 }
 
 const DarkModeSwitch: React.FC<DarkModeSwitchTypes> = ({ className }) => {
-  const { isDarkMode, setIsDarkMode } = useDarkMode();
+  const {isDarkMode, setIsDarkMode} = useDarkMode() 
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
