@@ -25,9 +25,13 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
-    const isDarkModeStored = localStorage.getItem("isDarkMode");
-    const initialIsDarkMode = isDarkModeStored === "true" || false;
-    setIsDarkMode(initialIsDarkMode);
+    const isLocalStorageAvailable =
+      typeof window !== "undefined" && window.localStorage;
+    if (isLocalStorageAvailable) {
+      const isDarkModeStored = localStorage.getItem("isDarkMode");
+      const initialIsDarkMode = isDarkModeStored === "true" || false;
+      setIsDarkMode(initialIsDarkMode);
+    }
   }, []);
 
   return (
@@ -41,6 +45,9 @@ export const useDarkMode = () => {
   const darkModeContext = useContext<DarkModeContextType | null>(
     DarkModeContext,
   );
+  if (!darkModeContext) {
+    throw new Error("useDarkMode must be used within a DarkModeProvider");
+  }
   return darkModeContext;
 };
 
