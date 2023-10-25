@@ -1,21 +1,24 @@
 import { useDarkMode } from "@/context/DarkModeProvider";
+import { useEffect } from "react";
 
 interface DarkModeSwitchTypes {
   className: string;
 }
 
 const DarkModeSwitch: React.FC<DarkModeSwitchTypes> = ({ className }) => {
-  const {isDarkMode, setIsDarkMode} = useDarkMode() 
+  const { isDarkMode, setIsDarkMode } = useDarkMode();
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
-
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-    } else {
-      document.documentElement.classList.add("dark");
-    }
   };
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
 
   return (
     <>
