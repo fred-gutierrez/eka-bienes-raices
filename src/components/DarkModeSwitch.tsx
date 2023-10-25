@@ -9,7 +9,12 @@ const DarkModeSwitch: React.FC<DarkModeSwitchTypes> = ({ className }) => {
   const { isDarkMode, setIsDarkMode } = useDarkMode();
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    const newDarkMode = !isDarkMode;
+    setIsDarkMode(newDarkMode);
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("isDarkMode", newDarkMode.toString());
+    }
   };
 
   useEffect(() => {
