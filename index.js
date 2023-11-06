@@ -5,7 +5,6 @@ import download from "download";
 dotenv.config();
 
 const postsDataFilePath = "./src/data/postsData.json";
-const imagesFolderPath = "./images";
 
 let existingData = [];
 try {
@@ -14,16 +13,13 @@ try {
   console.warn("No existing data found.");
 }
 
-if (!fs.existsSync(imagesFolderPath)) {
-  fs.mkdirSync(imagesFolderPath);
-}
-
 const downloadImage = async (imageUrl, postID) => {
   try {
     const filename = imageUrl.substring(
       imageUrl.lastIndexOf("/") + 1,
       imageUrl.lastIndexOf("?"),
     );
+
     const folderPath = `./public/images/${postID}/`;
     const imagePath = `./public/images/${postID}/${filename}`;
     const imagePathPublic = `./images/${postID}/${filename}`;
