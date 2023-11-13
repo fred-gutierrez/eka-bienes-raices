@@ -8,7 +8,7 @@ This project is a user-friendly solution for showcasing a Realtor's properties o
 
 A standout feature is its SEO optimization and enhanced user experience, thanks to the integration of <b>Next.js</b> for server-side rendering (SSR), significantly improving performance and SEO ranking. The Realtor doesn't need to be involved, as everything is managed by the API function.
 
-The original repository is <a href="https://github.com/fred-gutierrez">here</a>, with the appropriate commit history and changes made before the <b>Next.js</b> export on the 17th of October, 2023.
+The original repository is <a href="https://github.com/fred-gutierrez/eka-facebook-api">here</a>, with the appropriate commit history and changes made before the <b>Next.js</b> export on the 17th of October, 2023.
 
 <h2>Technologies Used</h2>
 <ul>
