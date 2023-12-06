@@ -29,7 +29,7 @@ const DarkModeSwitch: React.FC<DarkModeSwitchTypes> = ({ className }) => {
     <>
       <button onClick={toggleDarkMode} className={className}>
         {isDarkMode ? (
-          <i className="fa-light fa-moon fa-xl"></i>
+          <i className="fa-light fa-moon !text-white fa-xl"></i>
         ) : (
           <i className="fa-light fa-sun-bright fa-xl"></i>
         )}

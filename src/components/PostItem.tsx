@@ -7,7 +7,7 @@ interface Props {
 
 const PostItem = ({ postData }: Props) => {
   return (
-    <ul>
+    <ul className="mt-5">
       {postData.map((post: Post, index: number) => {
         // * Price
         const priceMatch: RegExpMatchArray | null = post.message.match(
@@ -224,7 +224,7 @@ const PostItem = ({ postData }: Props) => {
               <div>
                 {locationString && (
                   <div className="dark:text-white text-black flex items-center pb-4">
-                    <i className={`fa-solid fa-location-dot mr-2`}></i>
+                    <i className={`fa-solid fa-location-dot !text-red-500 mr-2`}></i>
                     <h1 className={`text-lg font-light`}>{locationString}</h1>
                   </div>
                 )}
@@ -234,9 +234,11 @@ const PostItem = ({ postData }: Props) => {
                     target={"_blank"}
                   >
                     <button
-                      className={`bg-orange-500 hover:bg-orange-400 text-white 
-                font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 
-                rounded w-full md:w-36`}
+                      className={`
+                      dark:bg-orange-500 dark:hover:bg-orange-400 dark:border-orange-700 dark:hover:border-orange-500
+                      bg-green-500 hover:bg-green-400 border-green-700 hover:border-green-500
+                      text-white font-bold py-2 px-4 border-b-4 
+                      rounded w-full md:w-36`}
                     >
                       Ver Detalles
                     </button>

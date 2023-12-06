@@ -8,7 +8,7 @@ export default function Footer() {
 
   const faceBookPage = "https://www.facebook.com/BienesRaicesEka";
   return (
-    <footer className="p-5 sm:px-10 sm:py-9 bg-transparent">
+    <footer className="p-5 mt-5 sm:p-10 md:px-20 lg:px-32 dark:bg-neutral-900 bg-neutral-100">
       <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0 flex">
           <a href="/">

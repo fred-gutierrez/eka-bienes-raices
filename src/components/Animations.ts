@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
@@ -12,15 +12,23 @@ const Animations = () => {
       return;
     }
     didAnimate.current = true;
-    gsap.from(".header-elements", {
-      duration: 1.5,
-      opacity: 0,
-      y: 300,
-      stagger: 0.15,
-    });
+    gsap.fromTo(
+      ".header-animation",
+      {
+        duration: 1,
+        opacity: 0,
+        y: 50,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.5,
+      },
+    );
   }, []);
 
-  return null
+  return null;
 };
 
 export default Animations;

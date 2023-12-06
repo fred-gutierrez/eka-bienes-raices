@@ -28,10 +28,15 @@ export default function RecentlyAdded({ postData }: Props) {
 
   return (
     <>
-      <h1 className="dark:recently-added-header-text recently-added-header-text text-center mb-10 sm:text-4xl md:leading-tight text-3xl font-bold md:font-medium">
-        ¡Lo ultimo!
-      </h1>
-      <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-4 xs:grid-cols-3 items-center px-10 sm:px-20 lg:px-32 max-w-5xl mx-auto">
+        <hr className="dark:bg-neutral-600 bg-neutral-300 p-0.5 w-full rounded-xl border-none" />
+        <h1 className="dark:text-white text-black text-center py-10 text-3xl sm:text-4xl font-bold col-span-2 xs:col-span-1">
+          ¡Lo último!
+        </h1>
+        <hr className="dark:bg-neutral-600 bg-neutral-300 p-0.5 w-full rounded-xl border-none" />
+      </div>
+
+      <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 sm:px-5 lg:px-10 max-w-screen-2xl mx-auto">
         {uniqueFilteredPosts.map((post, index) => {
           // * Price
           const priceMatch: RegExpMatchArray | null = post.message.match(
@@ -160,7 +165,7 @@ export default function RecentlyAdded({ postData }: Props) {
             },
             { propType: "Lote", icon: "panorama" },
             {
-              propType: "Casa",
+              propType: "Casas",
               icon: "house",
             },
             {
@@ -178,111 +183,112 @@ export default function RecentlyAdded({ postData }: Props) {
           ];
 
           return (
-            <>
-              <div key={index}>
-                {propertyType && (
-                  <h1 className="dark:text-white text-black text-center text-2xl my-4 underline">
+            <div key={index} className="mx-auto">
+              {propertyType && (
+                <div className="flex items-center justify-center mx-auto my-4 text-2xl">
+                  <span className="mr-2 text-neutral-400">en</span>
+                  <h1 className="dark:text-white text-black font-semibold">
                     {propertyType}
+                    {propertyType.toString() === "Local" ? "es" : "s"}
                   </h1>
-                )}
-                <li
-                  key={index}
-                  id={post.id}
-                  className={`
+                </div>
+              )}
+              <li
+                id={post.id}
+                className={`
                   dark:bg-neutral-700 bg-gray-100 
                   border-2 dark:border-neutral-600 border-gray-200
                   shadow-lg dark:shadow-neutral-600 shadow-gray-200
-                  items-center  
                   mb-6 py-6 px-5 mx-5
-                  max-w-screen-sm rounded-xl`}
-                >
-                  <div>
-                    {post.attachments.data.map(
-                      (attachment: any, index: number) => {
-                        const allImages = attachment.subattachments.data.map(
-                          (subattachment: any) => subattachment.media.image.src,
-                        );
+                  max-w-md rounded-xl`}
+              >
+                <div>
+                  {post.attachments.data.map(
+                    (attachment: any, index: number) => {
+                      const allImages = attachment.subattachments.data.map(
+                        (subattachment: any) => subattachment.media.image.src,
+                      );
 
-                        return <ImageCarousel images={allImages} key={index} />;
-                      },
+                      return <ImageCarousel images={allImages} key={index} />;
+                    },
+                  )}
+                </div>
+                <div>
+                  <div className="dark:text-white text-black flex items-center pt-5">
+                    <h1 className={`text-2xl sm:text-3xl font-bold`}>
+                      {highestPrice}
+                    </h1>
+                    <p className={`ml-2 text-lg text-center font-light`}>
+                      - En {alquilerVenta}
+                    </p>
+                  </div>
+                  <h1
+                    className={`dark:text-white text-black text-lg md:text-xl pt-2`}
+                  >
+                    {title}
+                  </h1>
+                  <div className="py-3 dark:text-white text-black">
+                    {interiorDetails.map((intDetails, index) =>
+                      intDetails.ifStatement ? (
+                        <div
+                          className="inline-flex items-center mr-3"
+                          key={index}
+                        >
+                          <i
+                            className={`fa-light fa-${intDetails.icon} mr-1`}
+                          ></i>
+                          <div>
+                            <span className="font-semibold">
+                              {intDetails.display}
+                            </span>
+                            {intDetails.desc}
+                          </div>
+                        </div>
+                      ) : null,
+                    )}
+                    {propertiesType.map(
+                      (property, index) =>
+                        propertyType.includes(property.propType) && (
+                          <div className="inline-flex items-center" key={index}>
+                            <i
+                              className={`fa-light fa-${property.icon} text-gray-800 mr-1`}
+                            ></i>
+                            <span>{property.propType}</span>
+                          </div>
+                        ),
                     )}
                   </div>
                   <div>
-                    <div className="dark:text-white text-black flex items-center pt-5">
-                      <h1 className={`text-2xl sm:text-3xl font-bold`}>
-                        {highestPrice}
-                      </h1>
-                      <p className={`ml-2 text-lg text-center font-light`}>
-                        - En {alquilerVenta}
-                      </p>
-                    </div>
-                    <h1
-                      className={`dark:text-white text-black text-lg md:text-xl pt-2`}
-                    >
-                      {title}
-                    </h1>
-                    <div className="py-3 dark:text-white text-black">
-                      {interiorDetails.map((intDetails, index) =>
-                        intDetails.ifStatement ? (
-                          <div
-                            className="inline-flex items-center mr-3"
-                            key={index}
-                          >
-                            <i
-                              className={`fa-light fa-${intDetails.icon} mr-1`}
-                            ></i>
-                            <div>
-                              <span className="font-semibold">
-                                {intDetails.display}
-                              </span>
-                              {intDetails.desc}
-                            </div>
-                          </div>
-                        ) : null,
-                      )}
-                      {propertiesType.map(
-                        (property, index) =>
-                          propertyType.includes(property.propType) && (
-                            <div
-                              className="inline-flex items-center"
-                              key={index}
-                            >
-                              <i
-                                className={`fa-light fa-${property.icon} text-gray-800 mr-1`}
-                              ></i>
-                              <span>{property.propType}</span>
-                            </div>
-                          ),
-                      )}
-                    </div>
-                    <div>
-                      {locationString && (
-                        <div className="dark:text-white text-black flex items-center pb-4">
-                          <i className={`fa-solid fa-location-dot mr-2`}></i>
-                          <h1 className={`text-lg font-light`}>
-                            {locationString}
-                          </h1>
-                        </div>
-                      )}
-                      <div className="w-full">
-                        <a
-                          href={`https://www.facebook.com/BienesRaicesEka/posts/${post.id}`}
-                          target={"_blank"}
-                        >
-                          <button
-                            className={`bg-orange-500 hover:bg-orange-400 text-white 
-                font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 
-                rounded w-full`}
-                          >
-                            Ver Detalles
-                          </button>
-                        </a>
+                    {locationString && (
+                      <div className="dark:text-white text-black flex items-center pb-4">
+                        <i
+                          className={`fa-solid fa-location-dot !text-red-500 mr-2`}
+                        ></i>
+                        <h1 className={`text-lg font-light`}>
+                          {locationString}
+                        </h1>
                       </div>
+                    )}
+                    <div className="w-full">
+                      <a
+                        href={`https://www.facebook.com/BienesRaicesEka/posts/${post.id}`}
+                        target={"_blank"}
+                      >
+                        <button
+                          className={`
+                          dark:bg-orange-500 dark:hover:bg-orange-400 dark:border-orange-700 dark:hover:border-orange-500
+                          bg-green-500 hover:bg-green-400 border-green-700 hover:border-green-500
+                          text-white font-bold py-2 px-4 border-b-4  
+                          rounded w-full`}
+                        >
+                          Ver Detalles
+                        </button>
+                      </a>
                     </div>
                   </div>
-                </li>
-              </div>
-            </>
+                </div>
+              </li>
+            </div>
           );
         })}
       </ul>

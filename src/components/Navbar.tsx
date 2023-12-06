@@ -34,7 +34,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="dark:bg-neutral-800 bg-neutral-50 p-3 px-8 md:px-14 xl:px-32 sticky top-0 z-10"
+      className="p-3 px-8 sm:px-10 md:px-20 lg:px-32 sticky top-0 z-10 dark:bg-neutral-900 bg-neutral-100"
       ref={navbarRef}
     >
       <div className="container flex flex-wrap items-center justify-between mx-auto">
@@ -56,7 +56,7 @@ export default function Navbar() {
 
         {/* Right side elements */}
         <div className="flex items-center">
-                    <DarkModeSwitch className="mr-4 md:mr-8" />
+          <DarkModeSwitch className="mr-4 md:mr-8" />
           <button
             data-collapse-toggle="navbar-solid-bg"
             type="button"
@@ -101,7 +101,7 @@ export default function Navbar() {
               className={`${
                 usePathname() === "/propiedades"
                   ? "dark:text-white text-black"
-                  : "text-gray-400 dark:hover:text-white hover:text-black"
+                  : "text-gray-400 dark:text-hover dark:hover:text-white hover:text-black"
               } rounded hover:underline`}
             >
               Propiedades
