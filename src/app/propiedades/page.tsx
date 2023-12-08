@@ -5,6 +5,7 @@ import PostItem from "@/components/PostItem";
 import postsData from "@/data/postsData.json";
 import Pagination from "@/components/Pagination";
 import { Post } from "@/types/postTypes";
+import gsap from "gsap";
 
 const Propiedades = () => {
   const [postData, setPostData] = useState<Post[]>([]);
@@ -13,7 +14,21 @@ const Propiedades = () => {
 
   useEffect(() => {
     setPostData(postsData);
+
+    gsap.fromTo(
+      ".property-li",
+      {
+        y: 50,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        stagger: 0.3,
+        y: 0,
+      },
+    );
   }, [postData]);
+
 
   const lastPostIndex = Math.min(currentPage * postPerPage, postData.length);
   const firstPostIndex = lastPostIndex - postPerPage;

@@ -161,6 +161,7 @@ const PostItem = ({ postData }: Props) => {
             key={index}
             id={post.id}
             className={`
+            property-li opacity-0
             dark:bg-neutral-700 bg-gray-100 
             border-2 dark:border-neutral-600 border-gray-200
             shadow-lg dark:shadow-neutral-600 shadow-gray-200
@@ -224,7 +225,9 @@ const PostItem = ({ postData }: Props) => {
               <div>
                 {locationString && (
                   <div className="dark:text-white text-black flex items-center pb-4">
-                    <i className={`fa-solid fa-location-dot !text-red-500 mr-2`}></i>
+                    <i
+                      className={`fa-solid fa-location-dot !text-red-500 mr-2`}
+                    ></i>
                     <h1 className={`text-lg font-light`}>{locationString}</h1>
                   </div>
                 )}
