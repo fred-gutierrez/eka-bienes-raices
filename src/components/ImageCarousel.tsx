@@ -1,7 +1,6 @@
-"use client"
+"use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import React, { useState } from "react";
 
 interface ImageCarouselProps {
   images: string[];
@@ -9,21 +8,7 @@ interface ImageCarouselProps {
 
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   const [currentImage, setCurrentImage] = useState(0);
-  const imageRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    const fadeInImage = () => {
-      gsap.to(imageRef.current, {
-        opacity: 1,
-        duration: 0.3,
-      });
-    };
-    gsap.to(imageRef.current, {
-      opacity: 0,
-      duration: 0.3,
-      onComplete: fadeInImage,
-    });
-  }, [currentImage, images]);
+  const [isHovered, setIsHovered] = useState(false);
 
   const nextImage = () => {
     setCurrentImage((prevImage) => (prevImage + 1) % images.length);
@@ -36,7 +21,11 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   };
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="flex justify-center">
         <img
           src={images[currentImage]}
@@ -44,16 +33,22 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
           className="w-full h-60 sm:h-72 object-cover rounded-lg shadow-lg"
         />
       </div>
-      <div className="absolute top-1/2 left-4 transform -translate-y-1/2 cursor-pointer text-gray-100 hover:text-gray-300">
-        <button onClick={prevImage}>
-          <i className="fa-solid fa-chevron-left fa-xl w-7 h-7 drop-shadow-2xl"></i>
-        </button>
-      </div>
-      <div className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer text-gray-100 hover:text-gray-300">
-        <button onClick={nextImage}>
-          <i className="fa-solid fa-chevron-right fa-xl w-7 h-7 drop-shadow-2xl"></i>
-        </button>
-      </div>
+      <button
+        onClick={prevImage}
+        className={`absolute top-1/2 left-0 transform -translate-y-1/2 cursor-pointer text-gray-100 hover:text-gray-200 ${
+          isHovered ? "md:opacity-100" : "md:opacity-0"
+        } h-full pl-5 md:pl-5`}
+      >
+        <i className="fa-solid fa-chevron-left text-2xl md:text-3xl drop-shadow-lg"></i>
+      </button>
+      <button
+        onClick={nextImage}
+        className={`absolute top-1/2 right-0 transform -translate-y-1/2 cursor-pointer text-gray-100 hover:text-gray-200 ${
+          isHovered ? "md:opacity-100" : "md:opacity-0"
+        } h-full pr-5 md:pr-6`}
+      >
+        <i className="fa-solid fa-chevron-right text-2xl md:text-3xl drop-shadow-lg"></i>
+      </button>
     </div>
   );
 };
