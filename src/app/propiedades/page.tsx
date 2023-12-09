@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import PostItem from "@/components/PostItem";
+import AdItem from "@/components/AdItem";
 import postsData from "@/data/postsData.json";
 import Pagination from "@/components/Pagination";
 import { Post } from "@/types/postTypes";
@@ -36,7 +36,7 @@ const Propiedades = () => {
 
   return (
     <>
-      <PostItem postData={currentPosts} />
+      <AdItem postData={currentPosts} />
       <Pagination
         totalPosts={postData.length}
         postsPerPage={postPerPage}
