@@ -83,7 +83,7 @@ export default function Navbar() {
               ></path>
             </svg>
           </button>
-          <ul className="hidden md:flex flex-row rounded space-x-8 text-md font-medium bg-gray-200 bg-transparent border-gray-300 items-center">
+          <div className="hidden md:flex flex-row rounded space-x-8 text-md font-medium bg-gray-200 bg-transparent border-gray-300 items-center">
             <Link
               href="/"
               onClick={() => toggleHidden()}
@@ -106,7 +106,7 @@ export default function Navbar() {
             >
               Propiedades
             </Link>
-          </ul>
+          </div>
         </div>
 
         {/* Mobile menu elements */}
