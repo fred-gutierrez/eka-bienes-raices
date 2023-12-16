@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import DarkModeSwitch from "./DarkModeSwitch";
 import { useDarkMode } from "@/context/DarkModeProvider";
 
@@ -99,7 +99,7 @@ export default function Navbar() {
               href="/propiedades"
               onClick={() => toggleHidden()}
               className={`${
-                usePathname() === "/propiedades"
+                usePathname().length >= 12
                   ? "dark:text-white text-black"
                   : "text-gray-400 dark:text-hover dark:hover:text-white hover:text-black"
               } rounded hover:underline`}
@@ -127,7 +127,7 @@ export default function Navbar() {
               href="/propiedades"
               onClick={() => toggleHidden()}
               className={`${
-                usePathname() === "/propiedades"
+                usePathname().length >= 12
                   ? "dark:text-white text-black"
                   : "text-gray-400 dark:hover:text-white hover:text-black"
               } py-2 pl-3 pr-4 rounded dark:hover:bg-neutral-500 hover:bg-gray-300`}

@@ -6,12 +6,21 @@ import postsData from "@/data/postsData.json";
 import Pagination from "@/components/Pagination";
 import { Post } from "@/types/postTypes";
 import gsap from "gsap";
+import { usePathname } from "next/navigation";
 
 const Propiedades = () => {
   const [postData, setPostData] = useState<Post[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  // usePathName is used to get the current url as a string 
+  const [currentPage, setCurrentPage] = useState(
+    Number(usePathname().split("").pop()),
+  );
   const [postPerPage, setPostPerPage] = useState(10);
 
+  const lastPostIndex = Math.min(currentPage * postPerPage, postData.length);
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPosts = postData.slice(firstPostIndex, lastPostIndex);
+
+  // Animations
   useEffect(() => {
     setPostData(postsData);
 
@@ -23,16 +32,11 @@ const Propiedades = () => {
       {
         opacity: 1,
         duration: 1,
-        stagger: 0.3,
+        stagger: 0.2,
         y: 0,
       },
     );
   }, [postData]);
-
-
-  const lastPostIndex = Math.min(currentPage * postPerPage, postData.length);
-  const firstPostIndex = lastPostIndex - postPerPage;
-  const currentPosts = postData.slice(firstPostIndex, lastPostIndex);
 
   return (
     <>

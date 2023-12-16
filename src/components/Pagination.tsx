@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface Props {
   totalPosts: number;
   postsPerPage: number;
@@ -21,8 +23,11 @@ export default function Pagination({
     <nav className="text-center" aria-label="Page navigation">
       <ul className="inline-flex items-center -space-x-px">
         <li>
-          <button
+          <Link
             onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
+            href={`/propiedades/${
+              currentPage > 1 ? currentPage - 1 : currentPage
+            }`}
             className={`
             dark:bg-neutral-700 dark:text-white dark:border-neutral-400 dark:hover:bg-neutral-600
             text-gray-500 border-gray-300 hover:bg-gray-100 hover:text-gray-700
@@ -42,12 +47,13 @@ export default function Pagination({
                 clip-rule="evenodd"
               ></path>
             </svg>
-          </button>
+          </Link>
         </li>
         {pages.map((page, index) => (
           <li key={index}>
-            <button
+            <Link
               onClick={() => setCurrentPage(page)}
+              href={`/propiedades/${page}`}
               className={`px-3 py-2 leading-tight
               ${
                 page === currentPage
@@ -58,15 +64,20 @@ export default function Pagination({
               }`}
             >
               {page}
-            </button>
+            </Link>
           </li>
         ))}
         <li>
-          <button
+          <Link
             onClick={() =>
               currentPage < Math.ceil(totalPosts / postsPerPage) &&
               setCurrentPage(currentPage + 1)
             }
+            href={`/propiedades/${
+              currentPage < Math.ceil(totalPosts / postsPerPage)
+                ? currentPage + 1
+                : currentPage
+            }`}
             className={`
             dark:bg-neutral-700 dark:text-white dark:border-neutral-400 dark:hover:bg-neutral-600
             text-gray-500 border-gray-300 hover:bg-gray-100 hover:text-gray-700
@@ -86,7 +97,7 @@ export default function Pagination({
                 clip-rule="evenodd"
               ></path>
             </svg>
-          </button>
+          </Link>
         </li>
       </ul>
     </nav>
