@@ -22,7 +22,7 @@ const downloadImage = async (imageUrl, postID) => {
 
     const folderPath = `./public/images/${postID}/`;
     const imagePath = `./public/images/${postID}/${filename}`;
-    const imagePathPublic = `./images/${postID}/${filename}`;
+    const imagePathPublic = `/images/${postID}/${filename}`;
 
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true });
