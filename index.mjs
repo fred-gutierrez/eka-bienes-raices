@@ -19,8 +19,6 @@ try {
   console.warn("No existing data found.");
 }
 
-console.log(fs.readFileSync(postsDataFilePath))
-
 const downloadImage = async (imageUrl, postID) => {
   try {
     const filename = imageUrl.substring(
