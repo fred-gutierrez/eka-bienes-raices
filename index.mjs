@@ -1,17 +1,25 @@
-import dotenv from "dotenv";
-import fs from "fs";
+// const fs = require("fs")
+// const download = require("download")
+// const dotenv = require("dotenv")
+//
 import download from "download";
+import dotenv from 'dotenv';
+import fs from "fs";
 
 dotenv.config();
 
 const postsDataFilePath = "./src/data/postsData.json";
 
 let existingData = [];
+
+// Checks to see if there is existing data in the path provided
 try {
   existingData = JSON.parse(fs.readFileSync(postsDataFilePath));
 } catch (err) {
   console.warn("No existing data found.");
 }
+
+console.log(fs.readFileSync(postsDataFilePath))
 
 const downloadImage = async (imageUrl, postID) => {
   try {
@@ -101,8 +109,7 @@ const fetchData = async () => {
   if (filteredData.length > 0) {
     fs.writeFileSync(postsDataFilePath, JSON.stringify(filteredData));
     console.log(
-      `Wrote ${newPosts.length} new posts and updated ${
-        existingData.length - newPosts.length
+      `Wrote ${newPosts.length} new posts and updated ${existingData.length - newPosts.length
       } existing posts.`,
     );
   } else {
