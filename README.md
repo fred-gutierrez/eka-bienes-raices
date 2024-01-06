@@ -18,6 +18,8 @@ The original repository is <a href="https://github.com/fred-gutierrez/eka-facebo
 - **Tailwind CSS**
 - **Facebook Graph API**
 - **Node.js**
+- **SQL**
+- **PostgreSQL**
 
 ## Project Overview
 <p>The Realtor's Properties Display Webpage is designed to streamline the process of presenting the Realtor's properties in an attractive and user-friendly manner. To achieve this, the following key features and technologies were utilized:
