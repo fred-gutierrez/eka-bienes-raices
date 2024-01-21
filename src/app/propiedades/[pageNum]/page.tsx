@@ -31,19 +31,20 @@ const Propiedades = () => {
       if (data) {
         setPostData(data)
         setFetchError(null)
-        gsap.fromTo(
-          ".property-li",
-          {
-            y: 50,
-          },
-          {
-            opacity: 1,
-            duration: 1,
-            stagger: 0.2,
-            y: 0,
-          },
-        );
       }
+
+      gsap.fromTo(
+        ".property-li",
+        {
+          y: 50,
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          stagger: 0.2,
+          y: 0,
+        },
+      );
     }
 
     fetchData()
