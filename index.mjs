@@ -1,7 +1,3 @@
-// const fs = require("fs")
-// const download = require("download")
-// const dotenv = require("dotenv")
-//
 import download from "download";
 import dotenv from 'dotenv';
 import fs from "fs";
