@@ -8,17 +8,17 @@ export function processPostData(post: Post) {
 
   const price: string[] = priceMatch
     ? priceMatch.map((match) => {
-        let cleanPrice = match.trim();
-        if (
-          cleanPrice.match(/mil(?=[\s,]|$)/) &&
-          !cleanPrice.includes(".000")
-        ) {
-          cleanPrice = cleanPrice.replace(/\s?mil(?=[\s,]|$)\b/g, ".000");
-        } else {
-          cleanPrice = cleanPrice.replace(/\s?mil(?=[\s,]|$)\b/g, "");
-        }
-        return cleanPrice;
-      })
+      let cleanPrice = match.trim();
+      if (
+        cleanPrice.match(/mil(?=[\s,]|$)/) &&
+        !cleanPrice.includes(".000")
+      ) {
+        cleanPrice = cleanPrice.replace(/\s?mil(?=[\s,]|$)\b/g, ".000");
+      } else {
+        cleanPrice = cleanPrice.replace(/\s?mil(?=[\s,]|$)\b/g, "");
+      }
+      return cleanPrice;
+    })
     : [];
 
   let highestPrice: string = "";
@@ -146,6 +146,14 @@ export function processPostData(post: Post) {
     },
   ];
 
+  const images = [
+    `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${post["attachments/data/0/subattachments/data/0/media/image/src"].replace(/\/images\//g, '/images2/')}`,
+    `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${post["attachments/data/0/subattachments/data/1/media/image/src"].replace(/\/images\//g, '/images2/')}`,
+    `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${post["attachments/data/0/subattachments/data/2/media/image/src"].replace(/\/images\//g, '/images2/')}`,
+    `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${post["attachments/data/0/subattachments/data/3/media/image/src"].replace(/\/images\//g, '/images2/')}`,
+    `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${post["attachments/data/0/subattachments/data/4/media/image/src"].replace(/\/images\//g, '/images2/')}`,
+  ]
+
   return {
     highestPrice,
     title,
@@ -157,5 +165,6 @@ export function processPostData(post: Post) {
     propertyType,
     interiorDetails,
     propertiesType,
+    images
   };
 }

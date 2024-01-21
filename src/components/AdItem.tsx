@@ -18,6 +18,7 @@ const AdItem = ({ postData }: Props) => {
           propertyType,
           interiorDetails,
           propertiesType,
+          images
         } = processPostData(post);
 
         return (
@@ -36,13 +37,7 @@ const AdItem = ({ postData }: Props) => {
             lg:mx-auto rounded-xl`}
           >
             <div>
-              {post.attachments.data.map((attachment: any, index: number) => {
-                const allImages = attachment.subattachments.data.map(
-                  (subattachment: any) => subattachment.media.image.src,
-                );
-
-                return <ImageCarousel images={allImages} key={index} />;
-              })}
+              <ImageCarousel images={images} key={index} />
             </div>
             <div className="md:pl-5">
               <div className="dark:text-white text-black flex items-center pt-5 md:pt-0">

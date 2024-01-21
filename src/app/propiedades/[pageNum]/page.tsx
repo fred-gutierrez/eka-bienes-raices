@@ -2,51 +2,69 @@
 
 import { useState, useEffect } from "react";
 import AdItem from "@/components/AdItem";
-import postsData from "@/data/postsData.json";
 import Pagination from "@/components/Pagination";
 import { Post } from "@/types/postTypes";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
+import { supabase } from "@/supabase/client";
 
 const Propiedades = () => {
-  const [postData, setPostData] = useState<Post[]>([]);
-  // usePathName is used to get the current url as a string 
-  const [currentPage, setCurrentPage] = useState(
-    Number(usePathname().split("").pop()),
-  );
+  const [fetchError, setFetchError] = useState<string | null>(null)
+  const [postData, setPostData] = useState<Post[]>([])
   const [postPerPage, setPostPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(
+    Number(usePathname().split("").pop()), // Get the current URL as a string
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, error } = await supabase
+        .from('posts')
+        .select()
+
+      if (error) {
+        setFetchError("Could not fetch the post data")
+        setPostData([])
+        console.log(error)
+      }
+
+      if (data) {
+        setPostData(data)
+        setFetchError(null)
+        gsap.fromTo(
+          ".property-li",
+          {
+            y: 50,
+          },
+          {
+            opacity: 1,
+            duration: 1,
+            stagger: 0.2,
+            y: 0,
+          },
+        );
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const lastPostIndex = Math.min(currentPage * postPerPage, postData.length);
   const firstPostIndex = lastPostIndex - postPerPage;
   const currentPosts = postData.slice(firstPostIndex, lastPostIndex);
 
-  // Animations
-  useEffect(() => {
-    setPostData(postsData);
-
-    gsap.fromTo(
-      ".property-li",
-      {
-        y: 50,
-      },
-      {
-        opacity: 1,
-        duration: 1,
-        stagger: 0.2,
-        y: 0,
-      },
-    );
-  }, [postData]);
-
   return (
     <>
-      <AdItem postData={currentPosts} />
-      <Pagination
-        totalPosts={postData.length}
-        postsPerPage={postPerPage}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-      />
+      {fetchError && <><p>{fetchError}</p></>}
+      {postData && <>
+        <AdItem postData={currentPosts} />
+        <Pagination
+          totalPosts={postData.length}
+          postsPerPage={postPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      </>}
     </>
   );
 };

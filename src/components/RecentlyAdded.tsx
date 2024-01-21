@@ -43,6 +43,7 @@ export default function RecentlyAdded({ postData }: Props) {
             propertyType,
             interiorDetails,
             propertiesType,
+            images
           } = processPostData(post);
 
           return (
@@ -67,15 +68,7 @@ export default function RecentlyAdded({ postData }: Props) {
                   max-w-md rounded-xl`}
                 >
                   <div>
-                    {post.attachments.data.map(
-                      (attachment: any, index: number) => {
-                        const allImages = attachment.subattachments.data.map(
-                          (subattachment: any) => subattachment.media.image.src,
-                        );
-
-                        return <ImageCarousel images={allImages} key={index} />;
-                      },
-                    )}
+                    <ImageCarousel images={images} key={index} />
                   </div>
                   <div>
                     <div className="dark:text-white text-black flex items-center pt-5">

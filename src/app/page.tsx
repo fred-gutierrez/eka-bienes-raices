@@ -1,13 +1,49 @@
 "use client";
 
-import postData from "@/data/postsData.json";
 import Header from "@/components/Header";
 import RecentlyAdded from "@/components/RecentlyAdded";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
+import { Post } from "@/types/postTypes";
+import { supabase } from "@/supabase/client";
 
 export default function Inicio() {
-  // GSAP Animations
+  const [fetchError, setFetchError] = useState<string | null>(null)
+  const [postData, setPostData] = useState<Post[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, error } = await supabase
+        .from('posts')
+        .select()
+
+      if (error) {
+        setFetchError("Could not fetch the post data")
+        setPostData([])
+        console.log(error)
+      }
+
+      if (data) {
+        setPostData(data)
+        setFetchError(null)
+        gsap.fromTo(
+          ".property-li",
+          {
+            y: 50,
+          },
+          {
+            opacity: 1,
+            duration: 1,
+            stagger: 0.3,
+            y: 0,
+          },
+        );
+      }
+    }
+
+    fetchData()
+  }, [])
+
   useEffect(() => {
     gsap.fromTo(
       ".header-animation",
@@ -23,24 +59,13 @@ export default function Inicio() {
         stagger: 0.3,
       },
     );
-    gsap.fromTo(
-      ".property-li",
-      {
-        y: 50,
-      },
-      {
-        opacity: 1,
-        duration: 1,
-        stagger: 0.3,
-        y: 0,
-      },
-    );
   }, []);
 
   return (
     <>
       <Header />
-      <RecentlyAdded postData={postData} />
+      {fetchError && <><p>{fetchError}</p></>}
+      {postData && <RecentlyAdded postData={postData} />}
     </>
   );
 }
