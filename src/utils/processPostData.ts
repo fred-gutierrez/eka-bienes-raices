@@ -146,13 +146,16 @@ export function processPostData(post: Post) {
     },
   ];
 
-  const images = [
-    `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${post["attachments/data/0/subattachments/data/0/media/image/src"].replace(/\/images\//g, '/images2/')}`,
-    `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${post["attachments/data/0/subattachments/data/1/media/image/src"].replace(/\/images\//g, '/images2/')}`,
-    `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${post["attachments/data/0/subattachments/data/2/media/image/src"].replace(/\/images\//g, '/images2/')}`,
-    `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${post["attachments/data/0/subattachments/data/3/media/image/src"].replace(/\/images\//g, '/images2/')}`,
-    `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${post["attachments/data/0/subattachments/data/4/media/image/src"].replace(/\/images\//g, '/images2/')}`,
-  ]
+  const images: (string)[] = []
+
+  for (let i = 0; i < 5; i++) {
+    const imageUrl = (post as any)[`attachments/data/0/subattachments/data/${i}/media/image/src`]
+
+    if (imageUrl !== null && imageUrl !== undefined) {
+      const modifiedUrl = `https://vvmerswhlluxyecltpwi.supabase.co/storage/v1/object/public${imageUrl.replace(/\/images\//g, '/images2/')}`
+      images.push(modifiedUrl)
+    }
+  }
 
   return {
     highestPrice,
