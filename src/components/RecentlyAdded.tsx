@@ -47,7 +47,7 @@ export default function RecentlyAdded({ postData }: Props) {
           } = processPostData(post);
 
           return (
-            <div key={index} className="mx-auto property-li opacity-0">
+            <div key={index} className="mx-auto">
               {propertyType && (
                 <div className="flex items-center justify-center mx-auto my-4 text-2xl">
                   <span className="mr-2 text-neutral-400">en</span>

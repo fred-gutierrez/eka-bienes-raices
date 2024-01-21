@@ -26,7 +26,6 @@ const AdItem = ({ postData }: Props) => {
             key={index}
             id={post.id}
             className={`
-            property-li opacity-0
             dark:bg-neutral-700 bg-gray-100 
             border-2 dark:border-neutral-600 border-gray-200
             shadow-lg dark:shadow-neutral-600 shadow-gray-200

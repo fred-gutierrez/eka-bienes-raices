@@ -27,19 +27,6 @@ export default function Inicio() {
         setPostData(data)
         setFetchError(null)
       }
-
-      gsap.fromTo(
-        ".property-li",
-        {
-          y: 50,
-        },
-        {
-          opacity: 1,
-          duration: 1,
-          stagger: 0.3,
-          y: 0,
-        },
-      );
     }
 
     fetchData()
