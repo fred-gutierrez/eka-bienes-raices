@@ -29,10 +29,6 @@ export default function RecentlyAdded({ postData }: Props) {
 
   return (
     <>
-      <h1 className="dark:text-white text-black text-center py-11 text-3xl sm:text-4xl font-semibold">
-        ¡Lo último!
-      </h1>
-
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 sm:px-5 lg:px-10 max-w-screen-2xl mx-auto">
         {uniqueFilteredPosts.map((post: Post, index: number) => {
           const {
