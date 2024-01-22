@@ -37,11 +37,6 @@ The original repository is <a href="https://github.com/fred-gutierrez/eka-facebo
 - **Tailwind CSS for Styling** - Tailwind CSS is used as the styling framework for the project, ensuring a sleek and modern design.
 - **Next.js Implementation** - We've harnessed the power of Next.js to bring several advantages to this project. Next.js offers efficient routing, which makes navigation seamless for users. It also contributes to SEO optimization by enabling server-side rendering (SSR), which significantly improves performance and search engine ranking. This implementation ensures that the Realtor's properties are not only beautifully presented but also easily discoverable online.
 
-## Sketches
-
-| ![Inicio Page - Eka](https://github.com/fred-gutierrez/Eka-Facebook-API/assets/81400463/fb16307c-eac9-4d86-a518-8e3be5b2ede5)  |    ![Eka Bienes Raíces](https://github.com/fred-gutierrez/Eka-Facebook-API/assets/81400463/b241e4c1-5f26-4f02-9c0c-a1e50037593b) |
-|---|---|
-
-~ Made in Figma by me!
+<hr>
 
 Thank you for your interest in the Eka Bienes Raices project! If you have any questions or feedback, please don't hesitate to reach out.
