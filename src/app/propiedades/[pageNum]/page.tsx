@@ -7,6 +7,7 @@ import { Post } from "@/types/postTypes";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
 import { supabase } from "@/supabase/client";
+import Loading from "@/components/Loading";
 
 const Propiedades = () => {
   const [fetchError, setFetchError] = useState<string | null>(null)
@@ -42,18 +43,22 @@ const Propiedades = () => {
   const currentPosts = postData.slice(firstPostIndex, lastPostIndex);
 
   return (
-    <>
-      {fetchError && <><p>{fetchError}</p></>}
-      {postData && <>
-        <AdItem postData={currentPosts} />
-        <Pagination
-          totalPosts={postData.length}
-          postsPerPage={postPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-      </>}
-    </>
+    <div className="min-h-screen">
+      {(!postData.length && !fetchError) ? (
+        <Loading />
+      ) : (
+        <>
+          {fetchError && <p>{fetchError}</p>}
+          <AdItem postData={currentPosts} />
+          <Pagination
+            totalPosts={postData.length}
+            postsPerPage={postPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </>
+      )}
+    </div>
   );
 };
 

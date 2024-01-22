@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { Post } from "@/types/postTypes";
 import { supabase } from "@/supabase/client";
+import Loading from "@/components/Loading";
 
 export default function Inicio() {
   const [fetchError, setFetchError] = useState<string | null>(null)
@@ -52,8 +53,14 @@ export default function Inicio() {
   return (
     <>
       <Header />
-      {fetchError && <><p>{fetchError}</p></>}
-      {postData && <RecentlyAdded postData={postData} />}
+      {(!postData.length && !fetchError) ? (
+        <Loading />
+      ) : (
+        <>
+          {fetchError && <p>{fetchError}</p>}
+          <RecentlyAdded postData={postData} />
+        </>
+      )}
     </>
   );
 }
