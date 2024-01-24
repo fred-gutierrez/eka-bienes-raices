@@ -1,9 +1,13 @@
-import { supabase } from '@/supabase/client';
-import { FacebookPost } from '@/types/postTypes';
 import dotenv from 'dotenv';
 import download from 'download'
+import { createClient } from "@supabase/supabase-js";
+import { FacebookPost } from "./src/types/postTypes.ts"
 
 dotenv.config();
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string
+const supabaseSRK = process.env.SUPABASE_SERVICE_ROLE_KEY as string
+const supabase = createClient(supabaseUrl, supabaseSRK);
 
 const downloadImages = async (imageUrl: string, postID: string) => {
   try {
@@ -12,26 +16,16 @@ const downloadImages = async (imageUrl: string, postID: string) => {
       imageUrl.lastIndexOf("?"),
     );
 
-    const { data: fileExists } = await supabase.storage
-      .from('test')
-      .list(`${postID}/${filename}`);
+    const imageData = await download(imageUrl)
 
-    if (!fileExists) {
-      const imageData = await download(imageUrl)
+    const { error } = await supabase.storage
+      .from('images2')
+      .upload(`${postID}/${filename}`, imageData, { contentType: 'image/jpg' })
 
-      const { error } = await supabase.storage
-        .from('test')
-        .upload(`${postID}/${filename}`, imageData)
-
-      if (error) {
-        console.error("Error uploading file to Supabase", error)
-      } else {
-        console.log(`File uploaded to Supabase storage: ${postID}/${filename}`)
-      }
-    }
-
-    else {
-      console.error('File already exists')
+    if (error) {
+      console.error("Error uploading file to Supabase", error)
+    } else {
+      console.log(`File uploaded to Supabase storage: ${postID}/${filename}`)
     }
   }
 
@@ -49,7 +43,7 @@ const fetchData = async () => {
   ).then((res) => res.json());
 
   const { data: existingData } = await supabase
-    .from('posts')
+    .from('posts_tests')
     .select(`id, message`)
 
   const newPostsJSON = [];
@@ -83,7 +77,6 @@ const fetchData = async () => {
                   "https://",
                 ) as any;
 
-
               const imagePath = await downloadImages(
                 image.media.image.src,
                 post.id,
@@ -111,7 +104,7 @@ const fetchData = async () => {
         (attachment.subattachments?.data || []).forEach((subattachment, subattachmentIndex) => {
           if (subattachment.media?.image?.src) {
             const columnName = `attachments/data/0/subattachments/data/${subattachmentIndex}/media/image/src`;
-            acc[columnName] = subattachment.media.image.src as any;
+            acc[columnName] = subattachment.media.image.src;
           }
         });
         return acc;
@@ -123,7 +116,7 @@ const fetchData = async () => {
 
   if (filteredData.length > 0) {
     const { data, error } = await supabase
-      .from('posts')
+      .from('posts_tests')
       .upsert({ csvArray }, { onConflict: 'id' })
 
     if (data) {
