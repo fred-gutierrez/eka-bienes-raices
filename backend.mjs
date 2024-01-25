@@ -1,14 +1,20 @@
 import dotenv from 'dotenv';
 import download from 'download';
 import { createClient } from "@supabase/supabase-js";
+// Dotenv initialized to access the .env keys properly
 dotenv.config();
+// Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseSRK = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = createClient(supabaseUrl, supabaseSRK);
-const downloadImages = async (imageUrl, postID) => {
+// Function to download and upload images to Supabase storage
+const downloadAndUploadImages = async (imageUrl, postID) => {
     try {
+        // Extract filename from the image URL
         const filename = imageUrl.substring(imageUrl.lastIndexOf("/") + 1, imageUrl.lastIndexOf("?"));
+        // Download image data
         const imageData = await download(imageUrl);
+        // Upload image to Supabase storage
         const { error } = await supabase.storage
             .from('images2')
             .upload(`${postID}/${filename}`, imageData, { contentType: 'image/jpg' });
@@ -23,88 +29,92 @@ const downloadImages = async (imageUrl, postID) => {
         console.error('Error in the downloadImages function: ', error);
     }
 };
+// Array to store new posts
 const newPosts = [];
+// Function to fetch data from Facebook and process it
 const fetchData = async () => {
-    const facebookData = await fetch(`https://graph.facebook.com/me?fields=posts{message,attachments{subattachments{media{image{src}}}}}&access_token=${process.env.FACEBOOK_ACCESS_TOKEN}`).then((res) => res.json());
-    for (const post of facebookData.posts?.data || []) {
-        const postsInfo = {
-            id: post.id,
-            message: post.message,
-            images: []
-        };
-        const imageArray = post.attachments;
-        if (imageArray && imageArray.data.length > 0) {
-            for (const imageDataArray of imageArray.data) {
-                const imageSubArray = imageDataArray.subattachments;
-                if (imageSubArray && imageSubArray.data.length > 0) {
-                    const slicedImageArray = imageSubArray.data.slice(0, 5);
-                    for (const image of slicedImageArray) {
-                        if (image.media && image.media.image) {
-                            image.media.image.src =
-                                image.media.image.src.replace(/^http:\/\//i, "https://");
-                            // const imagePath = await downloadImages(
-                            //   image.media.image.src,
-                            //   post.id,
-                            // );
-                            const filename = image.media.image.src.substring(image.media.image.src.lastIndexOf("/") + 1, image.media.image.src.lastIndexOf("?"));
-                            postsInfo.images.push(`/images/${post.id}/${filename}`);
-                            // image.media.image.src = imagePath as any;
+    try {
+        const facebookData = await fetch(`https://graph.facebook.com/me?fields=posts{message,attachments{subattachments{media{image{src}}}}}&access_token=${process.env.FACEBOOK_ACCESS_TOKEN}`).then((res) => res.json());
+        // Process each post from the Facebook data
+        for (const post of facebookData.posts?.data || []) {
+            const newPost = {
+                id: post.id,
+                message: post.message,
+                images: []
+            };
+            // Check if post has attachments with images
+            const imageArray = post.attachments;
+            if (imageArray && imageArray.data.length > 0) {
+                // Process up to 5 images per post
+                for (const imageDataArray of imageArray.data) {
+                    const imageSubArray = imageDataArray.subattachments;
+                    if (imageSubArray && imageSubArray.data.length > 0) {
+                        const slicedImageArray = imageSubArray.data.slice(0, 5);
+                        // Process each image
+                        for (const image of slicedImageArray) {
+                            if (image.media && image.media.image) {
+                                // Convert image URL to HTTPS
+                                image.media.image.src =
+                                    image.media.image.src.replace(/^http:\/\//i, "https://");
+                                // Download and Upload each Image
+                                // await downloadAndUploadImages(image.media.image.src, post.id);
+                                // Repeated function to extract the filename from the Image URL
+                                const filename = image.media.image.src.substring(image.media.image.src.lastIndexOf("/") + 1, image.media.image.src.lastIndexOf("?"));
+                                // And consequenly use it to store it in the rows properly
+                                newPost.images.push(`/images/${post.id}/${filename}`);
+                            }
                         }
+                        imageSubArray.data = slicedImageArray;
                     }
-                    imageSubArray.data = slicedImageArray;
                 }
             }
+            newPosts.push(newPost);
         }
-        newPosts.push(postsInfo);
+        // Filter posts based on the message length (Must be more than 15 characters)
+        const filteredData = newPosts.filter((post) => post.message?.split(" ").length >= 15);
+        // Insert new posts into the Supabase table
+        if (filteredData.length > 0) {
+            try {
+                for (const postData of filteredData) {
+                    const { id, message, images } = postData;
+                    // Check if a post with the same message already exists
+                    const { data: existingPost } = await supabase
+                        .from('posts')
+                        .select('id')
+                        .eq('message', message)
+                        .single();
+                    if (existingPost) {
+                        console.log(`Post with message "${message.substring(0, 45).replace("\n", " ")}" already exists. Skipping.`);
+                        continue;
+                    }
+                    // Construct upsert data
+                    const upsertData = {
+                        id,
+                        message,
+                    };
+                    images.forEach((image, index) => {
+                        upsertData[`attachments/data/0/subattachments/data/${index}/media/image/src`] = image;
+                    });
+                    // Upsert data into the Supabase table
+                    const { error } = await supabase
+                        .from('posts')
+                        .upsert(upsertData, { onConflict: 'id' });
+                    if (error) {
+                        console.error("Error inserting data: ", error);
+                    }
+                    else {
+                        console.log(`Post with id ${upsertData.id} was added/updated successfully`);
+                    }
+                }
+            }
+            catch (error) {
+                console.error("Something happened", error);
+            }
+        }
     }
-    const filteredData = Object.values([...newPosts]).filter((post) => {
-        const words = post.message?.split(" ");
-        return words?.length >= 15;
-    });
-    // let upsertData = new Map();
-    let upsertData;
-    if (filteredData.length > 0) {
-        try {
-            for (const postData of filteredData) {
-                const { id, message, images } = postData;
-                upsertData = {
-                    id,
-                    message,
-                };
-                images.forEach((image, index) => {
-                    upsertData[`attachments/data/0/subattachments/data/${index}/media/image/src`] = image;
-                });
-                // upsertData.set("id", postData.id)
-                // upsertData.set("message", postData.message)
-                // upsertData.set("firstImage", postData.images[0])
-                // upsertData.set("secondImage", postData.images[1])
-                // upsertData.set("thirdImage", postData.images[2])
-                // upsertData.set("fourthImage", postData.images[3])
-                // upsertData.set("fifthImage", postData.images[4])
-            }
-            const { data, error } = await supabase
-                .from('posts_tests')
-                .upsert({
-                [upsertData]: 
-                // id: upsertData.get("id"),
-                // message: upsertData.get("message"),
-                // "attachments/data/0/subattachments/data/0/media/image/src": upsertData.get("firstImage"),
-                // "attachments/data/0/subattachments/data/1/media/image/src": upsertData.get("secondImage"),
-                // "attachments/data/0/subattachments/data/2/media/image/src": upsertData.get("thirdImage"),
-                // "attachments/data/0/subattachments/data/3/media/image/src": upsertData.get("fourthImage"),
-                // "attachments/data/0/subattachments/data/4/media/image/src": upsertData.get("fifthImage"),
-            }, { onConflict: 'id' });
-            if (data) {
-                // console.log(`Wrote ${upsertData.length} new posts and updated ${data.length - upsertData.length} existing posts.`)
-                console.log("Posts were added yay!");
-            }
-            if (error) {
-                console.error("Error inserting data: ", error);
-            }
-        }
-        catch {
-            console.error("Something happened");
-        }
+    catch (error) {
+        console.error('Error in the fetchData function: ', error);
     }
 };
+// Execute the fetchData function
 fetchData();
