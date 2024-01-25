@@ -23,25 +23,15 @@ const downloadImages = async (imageUrl, postID) => {
         console.error('Error in the downloadImages function: ', error);
     }
 };
-// The code below is partitioned on 5 parts (1. Fetching - 2. Processing Data - 3. Filtering Data - 4. Writing Data to File - 5. Error handling)
+const newPosts = [];
 const fetchData = async () => {
-    // 1. Fetch Data
     const facebookData = await fetch(`https://graph.facebook.com/me?fields=posts{message,attachments{subattachments{media{image{src}}}}}&access_token=${process.env.FACEBOOK_ACCESS_TOKEN}`).then((res) => res.json());
-    const { data: existingData } = await supabase
-        .from('posts_tests')
-        .select(`id, message`);
-    const newPostsJSON = [];
-    // 2. Processing Data
     for (const post of facebookData.posts?.data || []) {
-        // Compares old posts to the new ones and adds the data to the start of the array
-        const existingPostCheck = existingData?.find((existingPost) => existingPost.id === post.id || existingPost.message === post.message);
-        if (existingPostCheck) {
-            console.log(`Duplicated post with message: ${post.message.substring(0, 50)}, and id: ${post.id}. Skipping.`);
-        }
-        else {
-            newPostsJSON.unshift(post);
-        }
-        // Process the image array
+        const postsInfo = {
+            id: post.id,
+            message: post.message,
+            images: []
+        };
         const imageArray = post.attachments;
         if (imageArray && imageArray.data.length > 0) {
             for (const imageDataArray of imageArray.data) {
@@ -52,44 +42,68 @@ const fetchData = async () => {
                         if (image.media && image.media.image) {
                             image.media.image.src =
                                 image.media.image.src.replace(/^http:\/\//i, "https://");
-                            const imagePath = await downloadImages(image.media.image.src, post.id);
-                            image.media.image.src = imagePath;
+                            // const imagePath = await downloadImages(
+                            //   image.media.image.src,
+                            //   post.id,
+                            // );
+                            const filename = image.media.image.src.substring(image.media.image.src.lastIndexOf("/") + 1, image.media.image.src.lastIndexOf("?"));
+                            postsInfo.images.push(`/images/${post.id}/${filename}`);
+                            // image.media.image.src = imagePath as any;
                         }
                     }
                     imageSubArray.data = slicedImageArray;
                 }
             }
         }
+        newPosts.push(postsInfo);
     }
-    const filteredData = Object.values([...newPostsJSON]).filter((post) => {
+    const filteredData = Object.values([...newPosts]).filter((post) => {
         const words = post.message?.split(" ");
         return words?.length >= 15;
     });
-    const csvArray = filteredData.map(post => {
-        const csvObject = {
-            id: post.id,
-            message: post.message,
-            ...(post.attachments?.data || []).reduce((acc, attachment) => {
-                (attachment.subattachments?.data || []).forEach((subattachment, subattachmentIndex) => {
-                    if (subattachment.media?.image?.src) {
-                        const columnName = `attachments/data/0/subattachments/data/${subattachmentIndex}/media/image/src`;
-                        acc[columnName] = subattachment.media.image.src;
-                    }
-                });
-                return acc;
-            }, {}),
-        };
-        return csvObject;
-    });
+    // let upsertData = new Map();
+    let upsertData;
     if (filteredData.length > 0) {
-        const { data, error } = await supabase
-            .from('posts_tests')
-            .upsert({ csvArray }, { onConflict: 'id' });
-        if (data) {
-            console.log(`Wrote ${newPostsJSON.length} new posts and updated ${existingData.length - newPostsJSON.length} existing posts.`);
+        try {
+            for (const postData of filteredData) {
+                const { id, message, images } = postData;
+                upsertData = {
+                    id,
+                    message,
+                };
+                images.forEach((image, index) => {
+                    upsertData[`attachments/data/0/subattachments/data/${index}/media/image/src`] = image;
+                });
+                // upsertData.set("id", postData.id)
+                // upsertData.set("message", postData.message)
+                // upsertData.set("firstImage", postData.images[0])
+                // upsertData.set("secondImage", postData.images[1])
+                // upsertData.set("thirdImage", postData.images[2])
+                // upsertData.set("fourthImage", postData.images[3])
+                // upsertData.set("fifthImage", postData.images[4])
+            }
+            const { data, error } = await supabase
+                .from('posts_tests')
+                .upsert({
+                [upsertData]: 
+                // id: upsertData.get("id"),
+                // message: upsertData.get("message"),
+                // "attachments/data/0/subattachments/data/0/media/image/src": upsertData.get("firstImage"),
+                // "attachments/data/0/subattachments/data/1/media/image/src": upsertData.get("secondImage"),
+                // "attachments/data/0/subattachments/data/2/media/image/src": upsertData.get("thirdImage"),
+                // "attachments/data/0/subattachments/data/3/media/image/src": upsertData.get("fourthImage"),
+                // "attachments/data/0/subattachments/data/4/media/image/src": upsertData.get("fifthImage"),
+            }, { onConflict: 'id' });
+            if (data) {
+                // console.log(`Wrote ${upsertData.length} new posts and updated ${data.length - upsertData.length} existing posts.`)
+                console.log("Posts were added yay!");
+            }
+            if (error) {
+                console.error("Error inserting data: ", error);
+            }
         }
-        if (error) {
-            console.error("Error inserting data: ", error);
+        catch {
+            console.error("Something happened");
         }
     }
 };
