@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <>
       <div className="relative overflow-hidden">
-        <div className="dark:bg-darkmode-image bg-lightmode-image absolute h-full w-full bg-cover bg-center blur-sm scale-x-110"></div>
+        <div className="dark:bg-darkmode-image bg-lightmode-image absolute h-full w-full bg-cover bg-center blur-sm scale-110"></div>
         <div className="bg-drop-shadow absolute bg-cover bg-center w-full h-full top-0 opacity-30"></div>
         <div className="relative text-center py-44 md:py-52 pb-52 px-8">
           <h1 className="header-animation sm:text-4xl md:text-5xl md:leading-tight text-neutral-100 text-2xl drop-shadow-lg font-bold opacity-0">
