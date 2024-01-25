@@ -68,8 +68,8 @@ export default function RecentlyAdded({ postData }: Props) {
                   </div>
                   <div>
                     <div className="dark:text-white text-black flex items-center pt-5">
-                      <h1 className={`text-2xl sm:text-3xl font-bold`}>
-                        {highestPrice}
+                      <h1 className={`text-2xl 2xl:text-3xl font-bold`}>
+                        {highestPrice ? highestPrice : "Valor no indicado"}
                       </h1>
                       <p className={`ml-2 text-lg text-center font-light`}>
                         - En {alquilerVenta}

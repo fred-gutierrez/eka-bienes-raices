@@ -17,6 +17,7 @@ export function processPostData(post: Post) {
       } else {
         cleanPrice = cleanPrice.replace(/\s?mil(?=[\s,]|$)\b/g, "");
       }
+
       return cleanPrice;
     })
     : [];
@@ -37,7 +38,7 @@ export function processPostData(post: Post) {
 
   // * Alquiler o Venta
   const alquilerVentaMatch = post.message.match(
-    /(alquil[oó]|alquiler|vendo|venta)/i,
+    /(alquil[oó]|alquiler|vendo|venta|negociable)/i,
   );
 
   let alquilerVenta = null;
@@ -52,6 +53,7 @@ export function processPostData(post: Post) {
         break;
       case "vendo":
       case "venta":
+      case "negociable":
         alquilerVenta = "Venta";
         break;
     }

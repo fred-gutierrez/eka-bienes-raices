@@ -40,7 +40,9 @@ const AdItem = ({ postData }: Props) => {
             </div>
             <div className="md:pl-5">
               <div className="dark:text-white text-black flex items-center pt-5 md:pt-0">
-                <h1 className={`text-2xl sm:text-3xl font-bold`}>{highestPrice}</h1>
+                <h1 className={`text-2xl lg:text-3xl font-bold`}>
+                  {highestPrice ? highestPrice : "Valor no indicado"}
+                </h1>
                 <p className={`ml-2 text-lg text-center font-light`}>
                   - En {alquilerVenta}
                 </p>
