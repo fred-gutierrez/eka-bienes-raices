@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import AdItem from "@/components/AdItem";
 import Pagination from "@/components/Pagination";
 import { Post } from "@/types/postTypes";
-import gsap from "gsap";
+// import gsap from "gsap";
 import { usePathname } from "next/navigation";
 import { supabase } from "@/supabase/client";
 import Loading from "@/components/Loading";
@@ -22,6 +22,7 @@ const Propiedades = () => {
       const { data, error } = await supabase
         .from('posts')
         .select()
+        .order('created_at', { ascending: false })
 
       if (error) {
         setFetchError("Could not fetch the post data")

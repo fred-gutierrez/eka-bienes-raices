@@ -17,6 +17,7 @@ export default function Inicio() {
       const { data, error } = await supabase
         .from('posts')
         .select()
+        .order('created_at', { ascending: false })
 
       if (error) {
         setFetchError("Could not fetch the post data")

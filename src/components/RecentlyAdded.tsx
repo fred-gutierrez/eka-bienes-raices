@@ -14,7 +14,7 @@ export default function RecentlyAdded({ postData }: Props) {
     const post = postData[i];
     const propertiesArray =
       post.message
-        .match(/\b(residencial|lote|bodega|casa|apartamento|terreno|local)\b/gi)
+        .match(/\b(residencial|lote|bodega|casa|apartamento|terreno|local)\b/g)
         ?.map((word) => word.charAt(0).toUpperCase() + word.slice(1)) || [];
 
     if (propertiesArray.length === 0) continue;
