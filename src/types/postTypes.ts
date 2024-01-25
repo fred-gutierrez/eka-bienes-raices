@@ -9,6 +9,34 @@ export interface Post {
   supaId: number;
 }
 
+export interface FacebookPost {
+  "posts": {
+    "data": [
+      {
+        "message": string,
+        "attachments": {
+          "data": [
+            {
+              "subattachments": {
+                "data": [
+                  {
+                    "media": {
+                      "image": {
+                        "src": "string"
+                      }
+                    }
+                  },
+                ]
+              }
+            }
+          ]
+        },
+        "id": "string"
+      }
+    ]
+  },
+}
+
 export type Interior = {
   ifStatement: number | boolean;
   icon: any;
