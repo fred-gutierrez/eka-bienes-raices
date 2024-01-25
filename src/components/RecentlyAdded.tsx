@@ -9,21 +9,18 @@ interface Props {
 export default function RecentlyAdded({ postData }: Props) {
   const uniqueFilteredPosts: Post[] = [];
   const propertyTypesSet = new Set<string>();
+  const propertyTypes = ["Casa", "Apartamento", "Bodega", "Residencial", "Local", "Terreno"]
 
   for (let i = 0; i < postData.length; i++) {
-    const post = postData[i];
-    const propertiesArray =
-      post.message
-        .match(/\b(residencial|lote|bodega|casa|apartamento|terreno|local)\b/g)
-        ?.map((word) => word.charAt(0).toUpperCase() + word.slice(1)) || [];
+    const propertyMatch = postData[i].message.match(/\b(residencial|lote|bodega|casa|apartamento|terreno|local)\b/gi)
 
-    if (propertiesArray.length === 0) continue;
+    if (propertyMatch && propertyMatch.length > 0) {
+      const propertyType = propertyMatch[0].charAt(0).toUpperCase() + propertyMatch[0].slice(1);
 
-    const propertyType = propertiesArray[0];
-
-    if (!propertyTypesSet.has(propertyType)) {
-      uniqueFilteredPosts.push(post);
-      propertyTypesSet.add(propertyType);
+      if (propertyTypes.includes(propertyType) && !propertyTypesSet.has(propertyType)) {
+        uniqueFilteredPosts.push(postData[i]);
+        propertyTypesSet.add(propertyType);
+      }
     }
   }
 
@@ -44,15 +41,13 @@ export default function RecentlyAdded({ postData }: Props) {
 
           return (
             <div key={index} className="mx-auto">
-              {propertyType && (
-                <div className="flex items-center justify-center mx-auto my-4 text-2xl">
-                  <span className="mr-2 text-neutral-400">en</span>
-                  <h1 className="dark:text-white text-black">
-                    {propertyType}
-                    {propertyType.toString() === "Local" ? "es" : "s"}
-                  </h1>
-                </div>
-              )}
+              <div className="flex items-center justify-center mx-auto my-4 text-2xl">
+                <span className="mr-2 text-neutral-400">en</span>
+                <h1 className="dark:text-white text-black">
+                  {propertyType}
+                  {propertyType.toString() === "Local" || propertyType.toString() === "Residencial" ? "es" : "s"}
+                </h1>
+              </div>
               <ul>
                 <li
                   id={post.id}
