@@ -51,6 +51,7 @@ const fetchData = async () => {
   ).then((res) => res.json());
 
   const newPosts = [];
+
   for (const post of data.posts?.data || []) {
     const existingPost = existingData.find(
       (p) => p.id === post.id || p.message === post.message,
