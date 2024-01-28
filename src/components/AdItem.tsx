@@ -96,7 +96,6 @@ const AdItem = ({ postData }: Props) => {
                   >
                     <button
                       className={`
-                      dark:bg-orange-500 dark:hover:bg-orange-400 dark:border-orange-700 dark:hover:border-orange-500
                       bg-green-500 hover:bg-green-400 border-green-700 hover:border-green-500
                       text-white font-bold py-2 px-4 border-b-4 
                       rounded w-full md:w-36`}
