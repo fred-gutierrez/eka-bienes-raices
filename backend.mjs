@@ -57,7 +57,7 @@ const fetchData = async () => {
                                 image.media.image.src =
                                     image.media.image.src.replace(/^http:\/\//i, "https://");
                                 // Download and Upload each Image
-                                // await downloadAndUploadImages(image.media.image.src, post.id);
+                                await downloadAndUploadImages(image.media.image.src, post.id);
                                 // Repeated function to extract the filename from the Image URL
                                 const filename = image.media.image.src.substring(image.media.image.src.lastIndexOf("/") + 1, image.media.image.src.lastIndexOf("?"));
                                 // And consequenly use it to store it in the rows properly

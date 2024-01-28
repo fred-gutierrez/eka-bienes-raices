@@ -86,7 +86,7 @@ const fetchData = async () => {
                   ) as any;
 
                 // Download and Upload each Image
-                // await downloadAndUploadImages(image.media.image.src, post.id);
+                await downloadAndUploadImages(image.media.image.src, post.id);
 
                 // Repeated function to extract the filename from the Image URL
                 const filename = image.media.image.src.substring(
