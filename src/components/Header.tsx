@@ -13,10 +13,11 @@ export default function Header() {
           <div className="text-center header-animation opacity-0">
             <Link href="/propiedades">
               <button
-                className={`dark:bg-orange-500 dark:hover:bg-orange-400 dark:border-orange-700 dark:hover:border-orange-500 
+                className={`
                 bg-green-500 hover:bg-green-400 text-white border-green-700 hover:border-green-500
                 py-2 px-4 font-semibold border-b-4  
-                w-52 mt-2 md:mt-3 lg:mt-4 rounded-full text-center`}
+                w-52 mt-2 md:mt-3 lg:mt-4 rounded-full text-center
+              `}
               >
                 Ver Propiedades
                 <i className="fa-solid fa-arrow-right fa-lg text-white ml-2"></i>
