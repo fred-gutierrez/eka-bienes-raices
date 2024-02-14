@@ -12,6 +12,8 @@ A standout feature is its <b>SEO</b> optimization and enhanced user experience, 
 
 The original repository is <a href="https://github.com/fred-gutierrez/eka-facebook-api">here</a>, with the appropriate commit history and changes made before the <b>Next.js</b> export on the 17th of October, 2023.
 
+![581shots_so](https://github.com/fred-gutierrez/eka-bienes-raices/assets/81400463/270e304e-54b3-42b7-842c-a3cabeba9a7c)
+
 ## Technologies Used
 - **Frontend**
   - Next.js
