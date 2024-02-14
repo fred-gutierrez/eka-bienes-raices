@@ -33,10 +33,11 @@ const downloadAndUploadImages = async (imageUrl, postID) => {
 const newPosts = [];
 // Function to fetch data from Facebook and process it
 const fetchData = async () => {
+    var _a;
     try {
         const facebookData = await fetch(`https://graph.facebook.com/me?fields=posts{message,attachments{subattachments{media{image{src}}}}}&access_token=${process.env.FACEBOOK_ACCESS_TOKEN}`).then((res) => res.json());
         // Process each post from the Facebook data
-        for (const post of facebookData.posts?.data || []) {
+        for (const post of ((_a = facebookData.posts) === null || _a === void 0 ? void 0 : _a.data) || []) {
             const newPost = {
                 id: post.id,
                 message: post.message,
@@ -71,7 +72,7 @@ const fetchData = async () => {
             newPosts.push(newPost);
         }
         // Filter posts based on the message length (Must be more than 15 characters)
-        const filteredData = newPosts.filter((post) => post.message?.split(" ").length >= 15);
+        const filteredData = newPosts.filter((post) => { var _a; return ((_a = post.message) === null || _a === void 0 ? void 0 : _a.split(" ").length) >= 15; });
         // Insert new posts into the Supabase table
         if (filteredData.length > 0) {
             try {
