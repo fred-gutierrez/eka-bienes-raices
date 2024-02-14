@@ -13,9 +13,7 @@ const Propiedades = () => {
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [postData, setPostData] = useState<Post[]>([])
   const [postPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(
-    Number(usePathname().split("").pop()), // Get the current URL as a string
-  );
+  const [currentPage, setCurrentPage] = useState(Number(usePathname().match(/\d+$/)));
 
   useEffect(() => {
     const fetchData = async () => {
