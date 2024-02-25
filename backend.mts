@@ -3,10 +3,8 @@ import download from 'download'
 import { createClient } from "@supabase/supabase-js";
 import { FacebookPost } from "./src/types/postTypes.ts"
 
-// Dotenv initialized to access the .env keys properly
 dotenv.config();
 
-// Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string
 const supabaseSRK = process.env.SUPABASE_SERVICE_ROLE_KEY as string
 const supabase = createClient(supabaseUrl, supabaseSRK);
@@ -40,14 +38,12 @@ const downloadAndUploadImages = async (imageUrl: string, postID: string) => {
   }
 }
 
-// Interface for representing new posts
 interface NewPost {
   id: string,
   message: string,
   images: string[]
 }
 
-// Array to store new posts
 const newPosts: NewPost[] = []
 
 // Function to fetch data from Facebook and process it
@@ -159,5 +155,10 @@ const fetchData = async () => {
   }
 }
 
-// Execute the fetchData function
 fetchData()
+
+// Simple placeholder to use when creating the .env
+// NEXT_PUBLIC_SUPABASE_URL=
+// NEXT_PUBLIC_SUPABASE_ANON_KEY=
+// SUPABASE_SERVICE_ROLE_KEY=
+// FACEBOOK_ACCESS_TOKEN=

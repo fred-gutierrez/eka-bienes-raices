@@ -1,9 +1,7 @@
 import dotenv from 'dotenv';
 import download from 'download';
 import { createClient } from "@supabase/supabase-js";
-// Dotenv initialized to access the .env keys properly
 dotenv.config();
-// Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseSRK = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = createClient(supabaseUrl, supabaseSRK);
@@ -29,7 +27,6 @@ const downloadAndUploadImages = async (imageUrl, postID) => {
         console.error('Error in the downloadImages function: ', error);
     }
 };
-// Array to store new posts
 const newPosts = [];
 // Function to fetch data from Facebook and process it
 const fetchData = async () => {
@@ -117,5 +114,9 @@ const fetchData = async () => {
         console.error('Error in the fetchData function: ', error);
     }
 };
-// Execute the fetchData function
 fetchData();
+// Simple placeholder to use when creating the .env
+// NEXT_PUBLIC_SUPABASE_URL=
+// NEXT_PUBLIC_SUPABASE_ANON_KEY=
+// SUPABASE_SERVICE_ROLE_KEY=
+// FACEBOOK_ACCESS_TOKEN=
