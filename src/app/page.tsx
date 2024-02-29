@@ -40,13 +40,13 @@ export default function Inicio() {
       {
         duration: 1,
         opacity: 0,
-        y: 50,
+        y: 25,
       },
       {
         y: 0,
         opacity: 1,
         duration: 1,
-        stagger: 0.3,
+        stagger: 0.2,
       },
     );
   }, []);
@@ -54,7 +54,7 @@ export default function Inicio() {
   return (
     <>
       <Header />
-      <h1 className="dark:text-white text-black text-center py-11 text-3xl sm:text-4xl font-semibold">
+      <h1 className="text-black text-center py-11 text-3xl sm:text-4xl font-normal">
         ¡Lo último!
       </h1>
       {(!postData.length && !fetchError) ? (

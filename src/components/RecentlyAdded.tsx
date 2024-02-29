@@ -42,8 +42,8 @@ export default function RecentlyAdded({ postData }: Props) {
           return (
             <div key={index} className="mx-auto">
               <div className="flex items-center justify-center mx-auto my-4 text-2xl">
-                <span className="mr-2 text-neutral-400">en</span>
-                <h1 className="dark:text-white text-black">
+                <span className="mr-2 text-neutral-400 font-light">en</span>
+                <h1 className="dark:text-white text-black font-light">
                   {propertyType}
                   {propertyType.toString() === "Local" || propertyType.toString() === "Residencial" ? "es" : "s"}
                 </h1>

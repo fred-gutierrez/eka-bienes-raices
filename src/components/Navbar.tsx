@@ -34,7 +34,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-10 bg-neutral-100 dark:bg-neutral-900"
+      className="sticky top-0 z-10 bg-white"
       ref={navbarRef}
     >
       <div className="relative">
@@ -57,7 +57,7 @@ export default function Navbar() {
 
           {/* Right side elements */}
           <div className="flex items-center">
-            <DarkModeSwitch className="mr-4 md:mr-8" />
+            {/* <DarkModeSwitch className="mr-4 md:mr-8" /> */}
             <button
               data-collapse-toggle="navbar-solid-bg"
               type="button"
@@ -110,7 +110,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile menu elements */}
-        <div className="hidden absolute top-16 w-full md:hidden bg-neutral-100 dark:bg-neutral-900 px-8 py-5 sm:px-16" id="navbar-menu">
+        <div className="hidden absolute top-16 w-full md:hidden bg-white px-8 py-5 sm:px-16" id="navbar-menu">
           <ul className="flex flex-col rounded dark:bg-neutral-700 bg-gray-200 dark:border-neutral-500 border-gray-400">
             <Link
               href="/"
