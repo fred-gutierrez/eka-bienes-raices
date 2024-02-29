@@ -10,8 +10,9 @@ const config: Config = {
     extend: {
       backgroundImage: {
         // "darkmode-image": "url('../assets/home-darkmode.jpg')",
-        "darkmode-image": "url('../assets/night-luxury-house.jpg')",
-        "lightmode-image": "url('../assets/home-lightmode.jpg')",
+        // "darkmode-image": "url('../assets/night-luxury-house.jpg')",
+        // "lightmode-image": "url('../assets/home-lightmode.jpg')",
+        "house-bg-image": "url('../assets/home-2.jpg')",
         "drop-shadow": "url('../assets/drop-shadow.png')",
       },
     },
