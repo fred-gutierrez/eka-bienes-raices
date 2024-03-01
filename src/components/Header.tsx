@@ -12,7 +12,7 @@ export default function Header() {
               Comienza tu Historia
             </h1>
             <p className="header-animation opacity-0 drop-shadow-md text-sm sm:text-base md:text-lg">
-              <u>Da Forma a tu Narravita</u>: Encuentra la Propiedad<br />
+              <u>Da Forma a tu Narrativa</u>: Encuentra la Propiedad<br />
               Perfecta para Comenzar tu Próximo Capítulo
             </p>
           </div>
