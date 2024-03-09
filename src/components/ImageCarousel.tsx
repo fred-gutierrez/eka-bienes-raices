@@ -10,25 +10,84 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   const [currentImage, setCurrentImage] = useState<number>(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [prevImageLoaded, setPrevImageLoaded] = useState<boolean>(false)
-  // const [nextImageLoaded, setNextImageLoaded] = useState<boolean>(false)
+  const [prevImageLoaded, setPrevImageLoaded] = useState<boolean>(false)
+  const [nextImageLoaded, setNextImageLoaded] = useState<boolean>(false)
 
   useEffect(() => {
     const image = new Image()
+    const prevImage = new Image();
+    const nextImage = new Image();
+
+    prevImage.onload = () => {
+      setPrevImageLoaded(true);
+      setIsLoading(false)
+    };
+
+    nextImage.onload = () => {
+      setNextImageLoaded(true);
+      setIsLoading(false)
+    };
+
     image.onload = () => {
       setIsLoading(false)
     }
-    image.src = images[currentImage]
+
+    prevImage.src = images[(currentImage - 1 + images.length) % images.length];
+    nextImage.src = images[(currentImage + 1) % images.length];
+    image.src = images[currentImage];
+
+    return () => {
+      // Cleanup listeners to avoid memory leaks
+      prevImage.onload = null;
+      nextImage.onload = null;
+      image.onload = null;
+    };
   }, [currentImage, images])
 
   const nextImage = () => {
-    setCurrentImage((prevImage) => (prevImage + 1) % images.length);
-    setIsLoading(true)
+    if (nextImageLoaded) {
+      setCurrentImage((nextImage) => (nextImage + 1) % images.length);
+    } else {
+      setIsLoading(true)
+
+      const nextImage = new Image()
+
+      nextImage.onload = () => {
+        setCurrentImage((nextImage) => (nextImage + 1) % images.length);
+      }
+
+      nextImage.src = images[(currentImage + 1) % images.length]
+
+      return () => {
+        // Cleanup listener
+        nextImage.onload = null;
+      }
+    }
+
+    setNextImageLoaded(false)
   };
 
-  const prevImage = () => {
-    setCurrentImage((prevImage) => (prevImage - 1 + images.length) % images.length);
-    setIsLoading(true)
+  const prevImage = async () => {
+    if (prevImageLoaded) {
+      setCurrentImage((prevImage) => (prevImage - 1 + images.length) % images.length);
+    } else {
+      setIsLoading(true);
+
+      const prevImage = new Image()
+
+      prevImage.onload = () => {
+        setCurrentImage((prevImage) => (prevImage - 1 + images.length) % images.length);
+      }
+
+      prevImage.src = images[(currentImage - 1 + images.length) % images.length];
+
+      return () => {
+        // Cleanup listener
+        prevImage.onload = null;
+      }
+    }
+
+    setPrevImageLoaded(false)
   };
 
   return (
