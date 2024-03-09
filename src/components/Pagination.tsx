@@ -16,8 +16,6 @@ export default function Pagination({
   const totalPages = Math.floor(totalPosts / postsPerPage);
   const pageRange = 7;
 
-  console.log(totalPages)
-
   let pages: number[] = [];
 
   for (let i = 1; i <= totalPages; i++) {
