@@ -3,12 +3,9 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useSearchParams } from "next/navigation";
-import DarkModeSwitch from "./DarkModeSwitch";
-import { useDarkMode } from "@/context/DarkModeProvider";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-  const { isDarkMode } = useDarkMode();
   const navbarRef = useRef<HTMLDivElement>(null);
 
   function toggleHidden() {
@@ -43,14 +40,10 @@ export default function Navbar() {
           <div className="flex items-center">
             <a href="/" className="flex items-center">
               <Image
-                src={
-                  isDarkMode
-                    ? "/eka-logo-single-white.png"
-                    : "/eka-logo-single-black.png"
-                }
+                src="/eka-logo-single-black.png"
                 width={54}
                 height={54}
-                alt={isDarkMode ? "Dark Mode Image" : "Light Mode Image"}
+                alt="Eka's Logo"
               />
             </a>
           </div>

@@ -1,27 +1,21 @@
 "use client"
 
 import Image from "next/image";
-import { useDarkMode } from "@/context/DarkModeProvider";
 
 export default function Footer() {
-  const { isDarkMode } = useDarkMode();
-
   const faceBookPage = "https://www.facebook.com/BienesRaicesEka";
+
   return (
     <footer className="p-5 mt-5 sm:p-10 md:px-20 lg:px-32 bg-white">
       <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0 flex">
           <a href="/">
             <Image
-              src={
-                isDarkMode
-                  ? "/eka-logo-white.png"
-                  : "/eka-logo-black.png"
-              }
+              src="/eka-logo-black.png"
               className="ml-3"
               height={96}
               width={96}
-              alt={isDarkMode ? "Dark Mode Image" : "Light Mode Image"}
+              alt="Eka Bienes Raices Logo"
             />
           </a>
         </div>
