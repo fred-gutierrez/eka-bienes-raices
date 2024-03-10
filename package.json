@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "backend": "node index.mjs"
+    "backend": "node backend.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.1",
