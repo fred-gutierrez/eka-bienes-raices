@@ -27,14 +27,14 @@ const downloadAndUploadImages = async (imageUrl: string, postID: string) => {
       .upload(`${postID}/${filename}`, imageData, { contentType: 'image/jpg' })
 
     if (error) {
-      console.error("Error uploading file to Supabase", error)
+      console.error(`Error uploading file with postID: ${postID} to Supabase, with the error message:`, error.message)
     } else {
       console.log(`File uploaded to Supabase storage: ${postID}/${filename}`)
     }
   }
 
   catch (error) {
-    console.error('Error in the downloadImages function: ', error)
+    console.error(`Error in the downloadImages function: `, error)
   }
 }
 
