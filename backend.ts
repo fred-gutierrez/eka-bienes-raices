@@ -122,7 +122,7 @@ const fetchData = async () => {
           }
 
           // Construct upsert data
-          const upsertData = {
+          const upsertData: { [key: string]: string } = {
             id,
             message,
           }
