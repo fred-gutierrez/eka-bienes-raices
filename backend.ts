@@ -1,7 +1,7 @@
-import dotenv from 'dotenv';
-import download from 'download'
+import * as dotenv from 'dotenv';
+import * as download from 'download';
 import { createClient } from "@supabase/supabase-js";
-import { FacebookPost } from "./src/types/postTypes.ts"
+import { FacebookPost } from "./src/types/postTypes"
 
 dotenv.config();
 
@@ -9,7 +9,6 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string
 const supabaseSRK = process.env.SUPABASE_SERVICE_ROLE_KEY as string
 const supabase = createClient(supabaseUrl, supabaseSRK);
 
-// Function to download and upload images to Supabase storage
 const downloadAndUploadImages = async (imageUrl: string, postID: string) => {
   try {
     // Extract filename from the image URL
@@ -18,7 +17,7 @@ const downloadAndUploadImages = async (imageUrl: string, postID: string) => {
       imageUrl.lastIndexOf("?"),
     );
 
-    // Download image data
+    // Download image
     const imageData = await download(imageUrl)
 
     // Upload image to Supabase storage
@@ -46,7 +45,6 @@ interface NewPost {
 
 const newPosts: NewPost[] = []
 
-// Function to fetch data from Facebook and process it
 const fetchData = async () => {
   try {
     const facebookData: FacebookPost = await fetch(
