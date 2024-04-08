@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import * as download from 'download';
+let download = require("download")
 import { createClient } from "@supabase/supabase-js";
 import { FacebookPost } from "./src/types/postTypes"
 
