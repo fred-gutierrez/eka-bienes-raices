@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "backend": "node backend.mjs",
+    "backend": "node backend.js",
     "test": "jest"
   },
   "dependencies": {
