@@ -1,13 +1,14 @@
 import * as dotenv from 'dotenv';
 let download = require("download")
+import { deleteSoldPosts } from "./cleanup.ts"
 import { createClient } from "@supabase/supabase-js";
-import { FacebookPost } from "./src/types/postTypes"
+import { FacebookPost } from "../src/types/postTypes"
 
 dotenv.config();
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string
 const supabaseSRK = process.env.SUPABASE_SERVICE_ROLE_KEY as string
-const supabase = createClient(supabaseUrl, supabaseSRK);
+const supabaseClient = createClient(supabaseUrl, supabaseSRK);
 
 const downloadAndUploadImages = async (imageUrl: string, postID: string) => {
   try {
@@ -21,19 +22,19 @@ const downloadAndUploadImages = async (imageUrl: string, postID: string) => {
     const imageData = await download(imageUrl)
 
     // Upload image to Supabase storage
-    const { error } = await supabase.storage
+    const { error } = await supabaseClient.storage
       .from('images2')
       .upload(`${postID}/${filename}`, imageData, { contentType: 'image/jpg' })
 
     if (error) {
-      console.error(`Error uploading file with postID: ${postID} to Supabase, with the error message:`, error.message)
+      console.error(`Error uploading file with postID: ${postID} to Supabase, with the error message:`, error.message);
     } else {
       console.log(`File uploaded to Supabase storage: ${postID}/${filename}`)
     }
   }
 
   catch (error) {
-    console.error(`Error in the downloadImages function: `, error)
+    console.error(`Error in the downloadImages function: ${error}`)
   }
 }
 
@@ -45,7 +46,7 @@ interface NewPost {
 
 const newPosts: NewPost[] = []
 
-const fetchData = async () => {
+const uploadNewPosts = async () => {
   try {
     const facebookData: FacebookPost = await fetch(
       `https://graph.facebook.com/me?fields=posts{message,attachments{subattachments{media{image{src}}}}}&access_token=${process.env.FACEBOOK_ACCESS_TOKEN}`,
@@ -110,7 +111,7 @@ const fetchData = async () => {
           const { id, message, images } = postData;
 
           // Check if a post with the same message already exists
-          const { data: existingPost } = await supabase
+          const { data: existingPost } = await supabaseClient
             .from('posts')
             .select('id')
             .eq('message', message)
@@ -132,7 +133,7 @@ const fetchData = async () => {
           })
 
           // Upsert data into the Supabase table
-          const { error } = await supabase
+          const { error } = await supabaseClient
             .from('posts')
             .upsert(upsertData, { onConflict: 'id' })
 
@@ -151,9 +152,11 @@ const fetchData = async () => {
   catch (error) {
     console.error('Error in the fetchData function: ', error)
   }
+  // Cleanup function to check for properties marked as sold
+  deleteSoldPosts(supabaseClient)
 }
 
-fetchData()
+uploadNewPosts()
 
 // Simple placeholder to use when creating the .env
 // NEXT_PUBLIC_SUPABASE_URL=
