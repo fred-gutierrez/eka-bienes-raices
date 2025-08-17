@@ -153,7 +153,7 @@ const uploadNewPosts = async () => {
     console.error('Error in the fetchData function: ', error)
   }
   // Cleanup function to check for properties marked as sold
-  deleteSoldPosts(supabaseClient)
+  // deleteSoldPosts(supabaseClient)
 }
 
 uploadNewPosts()

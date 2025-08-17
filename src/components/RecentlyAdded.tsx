@@ -26,7 +26,7 @@ export default function RecentlyAdded({ postData }: Props) {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 sm:px-5 lg:px-10 max-w-screen-2xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 px-5 lg:px-10 max-w-screen-2xl mx-auto">
         {uniqueFilteredPosts.map((post: Post, index: number) => {
           const {
             title,
@@ -40,29 +40,28 @@ export default function RecentlyAdded({ postData }: Props) {
           } = processPostData(post);
 
           return (
-            <div key={index} className="mx-auto">
+            <div key={index} className="w-full">
               <div className="flex items-center justify-center mx-auto my-4 text-2xl">
-                <span className="mr-2 text-neutral-400 font-light">en</span>
-                <h1 className="dark:text-white text-black font-light">
+                <span className="mr-2 font-light">en</span>
+                <h1 className="text-black font-medium">
                   {propertyType}
                   {propertyType.toString() === "Local" || propertyType.toString() === "Residencial" ? "es" : "s"}
                 </h1>
               </div>
-              <ul>
-                <li
+                <article
                   id={post.id}
                   className={`
-                  dark:bg-neutral-700 bg-gray-100 
-                  border-2 dark:border-neutral-600 border-gray-200
-                  shadow-lg dark:shadow-neutral-600 shadow-gray-200
-                  mb-6 py-6 px-5 mx-5
-                  max-w-md rounded-xl`}
+                  bg-gray-100 
+                  border-2 border-gray-200
+                  shadow-lg shadow-gray-200
+                  py-6 px-5
+                  max-w-md mx-auto w-full rounded-xl`}
                 >
                   <div>
                     <ImageCarousel images={images} key={index} />
                   </div>
                   <div>
-                    <div className="dark:text-white text-black flex items-center pt-5">
+                    <div className="text-black flex items-center pt-5">
                       <h1 className={`text-2xl 2xl:text-3xl font-bold`}>
                         {highestPrice ? highestPrice : "Valor no indicado"}
                       </h1>
@@ -73,7 +72,7 @@ export default function RecentlyAdded({ postData }: Props) {
                         : ""}
                     </div>
                     <h1
-                      className={`dark:text-white text-black text-lg md:text-xl pt-2`}
+                      className={`text-black text-lg md:text-xl pt-2`}
                     >
                       {title}
                     </h1>
@@ -139,8 +138,7 @@ export default function RecentlyAdded({ postData }: Props) {
                       </div>
                     </div>
                   </div>
-                </li>
-              </ul>
+                </article>
             </div>
           );
         })}

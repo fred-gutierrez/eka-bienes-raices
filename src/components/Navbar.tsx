@@ -31,11 +31,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-10 bg-white"
+      className="sticky top-0 z-10 bg-neutral-50 border-b-2 border-neutral-150"
       ref={navbarRef}
     >
       <div className="relative">
-        <div className="container flex flex-wrap items-center justify-between mx-auto py-3 px-8 sm:px-10 md:px-20 lg:px-32">
+        <div className="container flex flex-wrap items-center justify-between mx-auto py-4 px-8 sm:px-10 md:px-20 lg:px-32">
           {/* Left side elements */}
           <div className="flex items-center">
             <a href="/" className="flex items-center">

@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="es">
       <DarkModeProvider>
         <body className={inter.className}>
-          <div className="dark:bg-neutral-800 bg-neutral-50">
+          <div className="bg-white">
             <Navbar />
             {children}
             <Footer />

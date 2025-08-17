@@ -54,7 +54,7 @@ export default function Inicio() {
   return (
     <>
       <Header />
-      <h1 className="text-black text-center py-11 text-3xl sm:text-4xl font-normal">
+      <h1 className="text-black text-center py-12 text-3xl sm:text-4xl font-semibold">
         ¡Lo último!
       </h1>
       {(!postData.length && !fetchError) ? (

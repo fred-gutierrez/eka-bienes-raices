@@ -11,8 +11,8 @@ export default function Header() {
             <h1 className="header-animation text-3xl sm:text-4xl md:text-5xl md:leading-tight drop-shadow-md font-bold opacity-0">
               Comienza tu Historia
             </h1>
-            <p className="header-animation opacity-0 drop-shadow-md text-sm sm:text-base md:text-lg">
-              <u>Da Forma a tu Narrativa</u>: Encuentra la Propiedad<br />
+            <p className="header-animation font-medium opacity-0 drop-shadow-md text-sm sm:text-base md:text-xl">
+              Da Forma a tu Narrativa: Encuentra la Propiedad<br />
               Perfecta para Comenzar tu Próximo Capítulo
             </p>
           </div>
@@ -21,8 +21,8 @@ export default function Header() {
               <button
                 className={`
                 bg-green-500 hover:bg-green-400 text-white border-green-700 hover:border-green-500
-                py-2 px-4 font-semibold border-b-4  
-                w-52 mt-2 md:mt-3 lg:mt-3 rounded-full text-center
+                py-2 px-4 font-bold border-b-4  
+                w-52 mt-2 md:mt-3 rounded-full text-center
               `}
               >
                 Ver Propiedades
