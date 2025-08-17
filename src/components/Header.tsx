@@ -11,7 +11,7 @@ export default function Header() {
             <h1 className="header-animation text-3xl sm:text-4xl md:text-5xl md:leading-tight drop-shadow-md font-bold opacity-0">
               Comienza tu Historia
             </h1>
-            <p className="header-animation font-medium opacity-0 drop-shadow-md text-sm sm:text-base md:text-xl">
+            <p className="header-animation opacity-0 drop-shadow-md text-sm sm:text-base md:text-xl">
               Da Forma a tu Narrativa: Encuentra la Propiedad<br />
               Perfecta para Comenzar tu Próximo Capítulo
             </p>
