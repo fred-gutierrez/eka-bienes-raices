@@ -13,6 +13,7 @@ const config: Config = {
         // "darkmode-image": "url('../assets/night-luxury-house.jpg')",
         // "lightmode-image": "url('../assets/home-lightmode.jpg')",
         "house-bg-image": "url('../assets/home-2.jpg')",
+        // "house-bg-image": "url('../assets/home-at-night.jpg')",
         "drop-shadow": "url('../assets/drop-shadow.png')",
       },
     },

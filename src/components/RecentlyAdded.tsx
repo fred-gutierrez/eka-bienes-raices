@@ -26,7 +26,7 @@ export default function RecentlyAdded({ postData }: Props) {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 px-5 lg:px-10 max-w-screen-2xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 px-5 lg:px-10 max-w-screen-2xl mx-auto mb-12">
         {uniqueFilteredPosts.map((post: Post, index: number) => {
           const {
             title,
