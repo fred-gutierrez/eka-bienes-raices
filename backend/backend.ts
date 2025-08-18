@@ -1,8 +1,8 @@
 import * as dotenv from 'dotenv';
 let download = require("download")
-import { deleteSoldPosts } from "./cleanup.ts"
+import { deleteSoldPosts } from "./cleanup"
 import { createClient } from "@supabase/supabase-js";
-import { FacebookPost } from "../src/types/postTypes"
+import { FacebookPost } from '../src/types/postTypes';
 
 dotenv.config();
 
@@ -60,8 +60,8 @@ const uploadNewPosts = async () => {
         images: []
       }
 
-      // Check if post has attachments with images
       const imageArray = post.attachments;
+
       if (imageArray && imageArray.data.length > 0) {
         // Process up to 5 images per post
         for (const imageDataArray of imageArray.data) {
@@ -96,9 +96,9 @@ const uploadNewPosts = async () => {
             imageSubArray.data = slicedImageArray as any;
           }
         }
-      }
 
-      newPosts.push(newPost)
+        newPosts.push(newPost)
+      }
     }
 
     // Filter posts based on the message length (Must be more than 15 characters)
