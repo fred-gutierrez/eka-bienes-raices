@@ -18,7 +18,7 @@ const AdItem = ({ postData }: Props) => {
           propertyType,
           interiorDetails,
           propertiesType,
-          images
+          images,
         } = processPostData(post);
 
         return (
@@ -27,8 +27,8 @@ const AdItem = ({ postData }: Props) => {
             id={post.id}
             className={`
             dark:bg-neutral-700 bg-gray-100 
-            border-2 dark:border-neutral-600 border-gray-200
-            shadow-lg dark:shadow-neutral-600 shadow-gray-200
+            border-2 border-gray-200
+            shadow-lg shadow-gray-200
             items-center
             mb-6 md:mb-6 py-6 px-5 mx-5
             max-w-screen-lg 
@@ -43,11 +43,13 @@ const AdItem = ({ postData }: Props) => {
                 <h1 className={`text-2xl lg:text-3xl font-bold`}>
                   {highestPrice ? highestPrice : "Valor no indicado"}
                 </h1>
-                {alquilerVenta ?
+                {alquilerVenta ? (
                   <p className={`ml-1.5 text-lg text-center font-light`}>
                     - En {alquilerVenta}
                   </p>
-                  : ""}
+                ) : (
+                  ""
+                )}
               </div>
               <h1
                 className={`dark:text-white text-black text-lg md:text-xl pt-2`}
@@ -68,7 +70,7 @@ const AdItem = ({ postData }: Props) => {
                         {intDetails.desc}
                       </div>
                     </div>
-                  ) : null,
+                  ) : null
                 )}
                 {propertiesType.map(
                   (property, index) =>
@@ -79,34 +81,29 @@ const AdItem = ({ postData }: Props) => {
                         ></i>
                         <span>{property.propType}</span>
                       </div>
-                    ),
+                    )
                 )}
               </div>
-              <div>
-                {locationString && (
-                  <div className="dark:text-white text-black flex items-center pb-4">
-                    <i
-                      className={`fa-solid fa-location-dot !text-red-500 mr-2`}
-                    ></i>
-                    <h1 className={`text-lg font-light`}>{locationString}</h1>
-                  </div>
-                )}
-                <div className="w-full">
-                  <a
-                    href={`https://www.facebook.com/BienesRaicesEka/posts/${post.id}`}
-                    target={"_blank"}
-                  >
-                    <button
-                      className={`
-                      bg-green-500 hover:bg-green-400 border-green-700 hover:border-green-500
-                      text-white font-bold py-2 px-4 border-b-4 
-                      rounded w-full md:w-36`}
-                    >
-                      Ver Detalles
-                    </button>
-                  </a>
+              {locationString && (
+                <div className="dark:text-white text-black flex items-center pb-4">
+                  <i
+                    className={`fa-solid fa-location-dot !text-red-500 mr-2`}
+                  ></i>
+                  <h1 className={`text-lg font-light`}>{locationString}</h1>
                 </div>
-              </div>
+              )}
+              <a
+                href={`https://www.facebook.com/BienesRaicesEka/posts/${post.id}`}
+                target={"_blank"}
+                className={`
+                      block text-center w-fit
+                      bg-green-500 hover:bg-green-600 border-green-600 hover:border-green-700
+                      text-white font-bold py-2.5 px-4 border-b-4 
+                      rounded transition-colors
+                    `}
+              >
+                Ver Detalles
+              </a>
             </div>
           </li>
         );
