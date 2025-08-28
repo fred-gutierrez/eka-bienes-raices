@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 
 export default function Footer() {
   const faceBookPage = "https://www.facebook.com/BienesRaicesEka";
+  const tiktokPage = "https://www.tiktok.com/@bienesyraices_eka";
 
   return (
     <footer className="p-5 mt-5 sm:p-10 md:px-20 lg:px-32 bg-neutral-50 border-t-2 border-neutral-150">
@@ -26,13 +27,21 @@ export default function Footer() {
             </h2>
             <ul className="text-gray-600">
               <li className="mb-4">
-                {" "}
                 <a
                   href={faceBookPage}
                   className="hover:underline"
                   target={"_blank"}
                 >
                   Facebook
+                </a>
+              </li>
+              <li className="mb-4">
+                <a
+                  href={tiktokPage}
+                  className="hover:underline"
+                  target={"_blank"}
+                >
+                  TikTok
                 </a>
               </li>
             </ul>
