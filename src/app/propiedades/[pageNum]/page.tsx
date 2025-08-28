@@ -237,15 +237,15 @@ const Propiedades = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      {fetchError && (
-        <p className="text-red-500 text-center p-4">{fetchError}</p>
-      )}
-
+    <div className="min-h-screen relative">
       <PropertySorter
         onSortChange={handleFilterChange}
         currentFilters={sortFilters}
       />
+
+      {fetchError && (
+        <p className="text-red-500 text-center p-4">{fetchError}</p>
+      )}
 
       <AdItem postData={currentPosts} />
 

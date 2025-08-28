@@ -139,9 +139,9 @@ export default function RecentlyAdded({ postData }: Props) {
                       target={"_blank"}
                       className={`
                       block text-center w-full
-                      bg-green-500 hover:bg-green-600 border-green-600 hover:border-green-700
-                      text-white font-bold py-2.5 px-4 border-b-4 
-                      rounded transition-colors
+                      bg-green-500 hover:bg-green-600
+                      text-white font-bold py-3 px-5 
+                      rounded-md shadow-md transition-colors
                     `}
                     >
                       Ver Detalles

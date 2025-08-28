@@ -47,11 +47,16 @@ export default function PropertySorter({
   };
 
   return (
-    <div className="position-sticky bg-neutral-50 border-2 border-gray-200 shadow-md rounded-lg p-4 m-5 lg:mx-auto max-w-screen-lg">
-      <div className="flex flex-wrap items-center justify-between gap-4">
+    <div
+      className={`
+        bg-neutral-50 border-2 border-neutral-200 rounded-lg p-4 m-5 max-w-screen 
+        lg:w-full lg:rounded-none lg:border-y-2 lg:border-x-0 lg:mx-0
+        `}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-4 max-w-screen-lg mx-auto">
         {/* Property Type Filter */}
         <div className="flex-1 min-w-[200px]">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-neutral-800 mb-2">
             Tipo de Propiedad
           </label>
           <select
@@ -69,7 +74,7 @@ export default function PropertySorter({
 
         {/* Alquiler/Venta Filter */}
         <div className="flex-1 min-w-[200px]">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-800 mb-2">
             Tipo de Transacción
           </label>
           <select
@@ -89,7 +94,7 @@ export default function PropertySorter({
 
         {/* Sort By Filter */}
         <div className="flex-1 min-w-[200px]">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-neutral-800 mb-2">
             Ordenar por
           </label>
           <select
@@ -109,7 +114,7 @@ export default function PropertySorter({
         <div className="flex items-end">
           <button
             onClick={handleClearFilters}
-            className="px-4 py-2 bg-red-500 text-white font-bold rounded-md hover:bg-red-600 transition-colors"
+            className="px-4 py-3 bg-red-500 text-white font-bold rounded-md hover:bg-red-600 transition-colors shadow-sm"
           >
             Limpiar Filtros
           </button>

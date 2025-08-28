@@ -26,7 +26,7 @@ const AdItem = ({ postData }: Props) => {
             key={index}
             id={post.id}
             className={`
-            dark:bg-neutral-700 bg-gray-100 
+            bg-neutral-100 
             border-2 border-gray-200
             shadow-lg shadow-gray-200
             items-center
@@ -39,7 +39,7 @@ const AdItem = ({ postData }: Props) => {
               <ImageCarousel images={images} key={index} />
             </div>
             <div className="md:pl-5">
-              <div className="dark:text-white text-black flex items-center pt-5 md:pt-0">
+              <div className="text-black flex items-center pt-5 md:pt-0">
                 <h1 className={`text-2xl lg:text-3xl font-bold`}>
                   {highestPrice ? highestPrice : "Valor no indicado"}
                 </h1>
@@ -51,12 +51,8 @@ const AdItem = ({ postData }: Props) => {
                   ""
                 )}
               </div>
-              <h1
-                className={`dark:text-white text-black text-lg md:text-xl pt-2`}
-              >
-                {title}
-              </h1>
-              <div className="py-3 dark:text-white text-black">
+              <h1 className={`text-black text-lg md:text-xl pt-2`}>{title}</h1>
+              <div className="py-3 text-black">
                 {interiorDetails.map((intDetails, index) =>
                   intDetails.ifStatement ? (
                     <div className="inline-flex items-center mr-3" key={index}>
@@ -85,7 +81,7 @@ const AdItem = ({ postData }: Props) => {
                 )}
               </div>
               {locationString && (
-                <div className="dark:text-white text-black flex items-center pb-4">
+                <div className="text-black flex items-center pb-4">
                   <i
                     className={`fa-solid fa-location-dot !text-red-500 mr-2`}
                   ></i>
@@ -97,9 +93,9 @@ const AdItem = ({ postData }: Props) => {
                 target={"_blank"}
                 className={`
                       block text-center w-fit
-                      bg-green-500 hover:bg-green-600 border-green-600 hover:border-green-700
-                      text-white font-bold py-2.5 px-4 border-b-4 
-                      rounded transition-colors
+                      bg-green-500 hover:bg-green-600
+                      text-white font-bold py-3 px-5
+                      rounded-md shadow-md transition-colors
                     `}
               >
                 Ver Detalles
